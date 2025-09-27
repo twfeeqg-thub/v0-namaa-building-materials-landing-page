@@ -1,10 +1,35 @@
+'use client'
+
+import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
+import fs from 'fs' // لاستيراد مكتبة نظام الملفات
+import path from 'path' // لاستيراد مكتبة المسارات
+
+// --- بداية الكود الديناميكي ---
+// هذه الدالة ستقرأ الصور من المجلد قبل بناء الصفحة
+const getImages = () => {
+  // نحدد المسار إلى مجلد الصور
+  const imagesDirectory = path.join(process.cwd(), 'public/images');
+  try {
+    // نقرأ أسماء جميع الملفات في المجلد
+    const filenames = fs.readdirSync(imagesDirectory);
+    // نقوم بإنشاء الروابط الصحيحة للصور
+    return filenames.map(filename => `/images/${filename}`);
+  } catch (error) {
+    console.error("Could not read the images directory:", error);
+    return []; // نرجع مصفوفة فارغة في حال حدوث خطأ
+  }
+};
+// --- نهاية الكود الديناميكي ---
+
 
 export default function Component() {
-  // الرابط المحلي المباشر للصورة من مجلد 'public'
-  const mainImageUrl = "/namaa-1.jpg"; 
+  const [emblaRef] = useEmblaCarousel({ loop: true }); 
+  
+  // الآن، imageUrls يتم إنشاؤها تلقائياً
+  const imageUrls = getImages();
 
   return (
     <div key="1" className="flex flex-col min-h-[100dvh]" dir="rtl">
@@ -54,13 +79,29 @@ export default function Component() {
                 </div>
               </div>
               
-              <Image
-                alt="صورة المحل الرئيسية"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
-                height="550"
-                src={mainImageUrl}
-                width="550"
-              />
+              {/* === السلايدر الديناميكي === */}
+              <div className="embla rounded-xl" ref={emblaRef}>
+                <div className="embla__container">
+                  {imageUrls.length > 0 ? (
+                    imageUrls.map((url, index) => (
+                      <div className="embla__slide" key={index}>
+                        <Image
+                          alt={`صورة عرض ${index + 1}`}
+                          className="aspect-square object-cover"
+                          src={url}
+                          width={550}
+                          height={550}
+                          priority={index === 0}
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <div className="embla__slide flex items-center justify-center bg-gray-800">
+                      <p>لا توجد صور لعرضها</p>
+                    </div>
+                  )}
+                </div>
+              </div>
 
             </div>
           </div>
