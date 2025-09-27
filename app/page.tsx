@@ -1,10 +1,8 @@
-// لا يوجد 'use client' لأننا لا نستخدم مكونات تفاعلية في هذا الإصدار المبسط
-import Image from 'next/image' // <-- سنستخدم مكون الصور الرسمي من Next.js
+import Image from 'next/image'
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 
 export default function Component() {
-  // لقد قمنا بإزالة كل ما يتعلق بمكتبة السلايدر
   const mainImageUrl = "https://lh3.googleusercontent.com/p/AF1QipP_x9r7Z6y5t4g3l2b1k0Y5j6X7Z8c9v8w7u6t5r4=s1360-w1360-h1020";
 
   return (
@@ -55,16 +53,15 @@ export default function Component() {
                 </div>
               </div>
               
-              {/* === بداية الكود المبسط لعرض صورة واحدة فقط === */}
-              <div className="relative mx-auto w-full overflow-hidden rounded-xl">
-                <Image
-                  alt="صورة المحل الرئيسية"
-                  className="object-cover"
-                  fill={true} // هذا سيجعل الصورة تملأ المساحة المتاحة
-                  src={mainImageUrl}
-                />
-              </div>
-              {/* === نهاية الكود المبسط === */}
+              {/* === بداية الكود المصحح لعرض صورة واحدة === */}
+              <Image
+                alt="صورة المحل الرئيسية"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+                height="550"
+                src={mainImageUrl}
+                width="550"
+              />
+              {/* === نهاية الكود المصحح === */}
 
             </div>
           </div>
