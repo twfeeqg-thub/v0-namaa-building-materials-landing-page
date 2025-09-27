@@ -10,7 +10,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
+        hostname: 'i.ibb.co', // <-- النطاق الجديد والمسموح به
         port: '',
         pathname: '/**',
       },
