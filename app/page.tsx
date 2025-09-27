@@ -61,19 +61,20 @@ export default function Component() {
                 </div>
               </div>
               
-              <div className="overflow-hidden rounded-xl" ref={emblaRef}>
-                <div className="flex">
-                  {imageUrls.map((url, index) => (
-                    <div className="relative flex-grow-0 flex-shrink-0 w-full" key={index}>
-                      <img
-                        alt={`صورة المحل ${index + 1}`}
-                        className="mx-auto aspect-video object-cover sm:w-full lg:aspect-square"
-                        src={url}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <div className="embla rounded-xl" ref={emblaRef}>
+  <div className="embla__container">
+    {imageUrls.map((url, index) => (
+      <div className="embla__slide" key={index}>
+        <img
+          alt={`صورة المحل ${index + 1}`}
+          className="mx-auto aspect-video object-cover sm:w-full lg:aspect-square"
+          src={url}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
 
             </div>
           </div>
