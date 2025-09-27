@@ -5,16 +5,14 @@ import Image from 'next/image'
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 
+// === السطر الذي تم حذفه بالخطأ وأعدته الآن ===
 export default function Component() {
   const [emblaRef] = useEmblaCarousel({ loop: true }); 
   
-  // === العودة إلى القائمة اليدوية المضمونة ===
-  // هذه الطريقة تعمل 100% لأنها لا تستخدم مكتبة 'fs' المحظورة في المتصفح
   const imageUrls = [
     "/images/namaa-1.jpg",
     "/images/namaa-2.jpg",
     "/images/namaa-3.jpg"
-    // إذا أردت إضافة صورة رابعة، فقط أضف "/images/namaa-4.jpg" هنا
   ];
 
   return (
@@ -46,7 +44,10 @@ export default function Component() {
                     شريكك الموثوق لمواد البناء في جدة
                   </h1>
                   <p className="max-w-[600px] text-gray-300 md:text-xl">
-                    كتالوجنا الرقمي، اطلب عرض سعر في دقائق، ودع مساعدنا الذكي يخدمك 24/7. className="flex flex-col gap-2 min-[400px]:flex-row">
+                    جودة، سرعة، وخدمة ذكية. تصفح كتالوجنا الرقمي، اطلب عرض سعر في دقائق، ودع مساعدنا الذكي يخدمك 24/7. .
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md bg-yellow-400 px-8 text-sm font-medium text-gray-900 shadow transition-colors hover:bg-yellow-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-600 disabled:pointer-events-none disabled:opacity-50"
                     href="#"
@@ -62,7 +63,6 @@ export default function Component() {
                 </div>
               </div>
               
-              {/* === السلايدر بالكود والتنسيقات الصحيحة === */}
               <div className="embla rounded-xl" ref={emblaRef}>
                 <div className="embla__container">
                   {imageUrls.map((url, index) => (
@@ -73,7 +73,7 @@ export default function Component() {
                         src={url}
                         width={550}
                         height={550}
-                        priority={index === 0} // نعطي أولوية تحميل للصورة الأولى
+                        priority={index === 0}
                       />
                     </div>
                   ))}
@@ -84,7 +84,6 @@ export default function Component() {
           </div>
         </section>
         
-        {/* ... باقي أقسام الصفحة تبقى كما هي بدون تغيير ... */}
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
