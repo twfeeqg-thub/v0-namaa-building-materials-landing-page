@@ -1,19 +1,10 @@
-'use client'
-
-import useEmblaCarousel from 'embla-carousel-react'
-import Image from 'next/image' // سنستخدم مكون Image الرسمي لتحسين الأداء
+import Image from 'next/image'
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 
 export default function Component() {
-  const [emblaRef] = useEmblaCarousel({ loop: true }); 
-  
-  // الروابط المباشرة والصحيحة من ImgBB
-  const imageUrls = [
-    "https://i.ibb.co/L6R0DkM/namaa-1.jpg",
-    "https://i.ibb.co/yQWdYdC/namaa-2.jpg",
-    "https://i.ibb.co/JqfGvJt/namaa-3.jpg"
-  ];
+  // الرابط المحلي المباشر للصورة من مجلد 'public'
+  const mainImageUrl = "/namaa-1.jpg"; 
 
   return (
     <div key="1" className="flex flex-col min-h-[100dvh]" dir="rtl">
@@ -63,22 +54,13 @@ export default function Component() {
                 </div>
               </div>
               
-              {/* === السلايدر بالكود والتنسيقات الصحيحة === */}
-              <div className="embla rounded-xl" ref={emblaRef}>
-                <div className="embla__container">
-                  {imageUrls.map((url, index) => (
-                    <div className="embla__slide" key={index}>
-                      <Image
-                        alt={`صورة المحل ${index + 1}`}
-                        className="aspect-square object-cover" // استخدام aspect-square للحفاظ على الأبعاد
-                        src={url}
-                        width={550}
-                        height={550}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <Image
+                alt="صورة المحل الرئيسية"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+                height="550"
+                src={mainImageUrl}
+                width="550"
+              />
 
             </div>
           </div>
