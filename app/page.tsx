@@ -3,8 +3,7 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import Link from "next/link"
-// === التصحيح: تم حذف 'JSX' من هنا لأنه يسبب الخطأ ===
-import { SVGProps } from "react"
+import { SVGProps } from "react" // تم تصحيح هذا السطر
 
 export default function Component() {
   const [emblaRef] = useEmblaCarousel({ loop: true }); 
@@ -84,6 +83,7 @@ export default function Component() {
           </div>
         </section>
         
+        {/* ... باقي الكود يبقى كما هو ... */}
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -187,7 +187,6 @@ export default function Component() {
 }
 
 // === مكونات الأيقونات (تبقى كما هي بدون تغيير) ===
-// (هنا بقية مكونات الأيقونات التي لم تتغير)
 function BoltIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
