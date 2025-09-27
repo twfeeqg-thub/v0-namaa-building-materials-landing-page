@@ -1,17 +1,11 @@
-'use client' // <-- إضافة هذا السطر مهم جداً لتشغيل السلايدر في المتصفح
-
-import useEmblaCarousel from 'embla-carousel-react'
+// لا يوجد 'use client' لأننا لا نستخدم مكونات تفاعلية في هذا الإصدار المبسط
+import Image from 'next/image' // <-- سنستخدم مكون الصور الرسمي من Next.js
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 
 export default function Component() {
-  const [emblaRef] = useEmblaCarousel({ loop: true }); 
-  
-  const imageUrls = [
-    "https://lh3.googleusercontent.com/p/AF1QipP_x9r7Z6y5t4g3l2b1k0Y5j6X7Z8c9v8w7u6t5r4=s1360-w1360-h1020",
-    "https://lh3.googleusercontent.com/p/AF1QipN7lq0W_3h4g3l2b1k0Y5j6X7Z8c9v8w7u6t5r4=s1360-w1360-h1020",
-    "https://lh3.googleusercontent.com/p/AF1QipP9v8w7u6t5r4Z6y5t4g3l2b1k0Y5j6X7Z8c9v8=s1360-w1360-h1020"
-  ];
+  // لقد قمنا بإزالة كل ما يتعلق بمكتبة السلايدر
+  const mainImageUrl = "https://lh3.googleusercontent.com/p/AF1QipP_x9r7Z6y5t4g3l2b1k0Y5j6X7Z8c9v8w7u6t5r4=s1360-w1360-h1020";
 
   return (
     <div key="1" className="flex flex-col min-h-[100dvh]" dir="rtl">
@@ -61,25 +55,22 @@ export default function Component() {
                 </div>
               </div>
               
-              <div className="embla rounded-xl" ref={emblaRef}>
-  <div className="embla__container">
-    {imageUrls.map((url, index) => (
-      <div className="embla__slide" key={index}>
-        <img
-          alt={`صورة المحل ${index + 1}`}
-          className="mx-auto aspect-video object-cover sm:w-full lg:aspect-square"
-          src={url}
-        />
-      </div>
-    ))}
-  </div>
-</div>
-
+              {/* === بداية الكود المبسط لعرض صورة واحدة فقط === */}
+              <div className="relative mx-auto w-full overflow-hidden rounded-xl">
+                <Image
+                  alt="صورة المحل الرئيسية"
+                  className="object-cover"
+                  fill={true} // هذا سيجعل الصورة تملأ المساحة المتاحة
+                  src={mainImageUrl}
+                />
+              </div>
+              {/* === نهاية الكود المبسط === */}
 
             </div>
           </div>
         </section>
         
+        {/* ... باقي أقسام الصفحة تبقى كما هي بدون تغيير ... */}
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -182,6 +173,7 @@ export default function Component() {
   )
 }
 
+// === مكونات الأيقونات (تبقى كما هي بدون تغيير) ===
 function BoltIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
