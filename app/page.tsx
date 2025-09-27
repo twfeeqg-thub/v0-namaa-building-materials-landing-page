@@ -3,9 +3,9 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import Link from "next/link"
-import { JSX, SVGProps } from "react"
+// === التصحيح: تم حذف 'JSX' من هنا لأنه يسبب الخطأ ===
+import { SVGProps } from "react"
 
-// === السطر الذي تم حذفه بالخطأ وأعدته الآن ===
 export default function Component() {
   const [emblaRef] = useEmblaCarousel({ loop: true }); 
   
@@ -187,7 +187,8 @@ export default function Component() {
 }
 
 // === مكونات الأيقونات (تبقى كما هي بدون تغيير) ===
-function BoltIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+// (هنا بقية مكونات الأيقونات التي لم تتغير)
+function BoltIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -206,7 +207,7 @@ function BoltIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+function BrickIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -226,7 +227,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function BuildingIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function BuildingIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -254,7 +255,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function ClockIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function ClockIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -273,7 +274,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function FileTextIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function FileTextIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -295,7 +296,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function HammerIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function HammerIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -314,7 +315,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function MessageCircleIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function MessageCircleIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -332,7 +333,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function PaintbrushIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function PaintbrushIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -357,7 +358,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function ShieldIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function ShieldIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -375,7 +376,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function ShoppingCartIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function ShoppingCartIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -395,7 +396,7 @@ function BrickIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  function WrenchIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function WrenchIcon(props: SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
