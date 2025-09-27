@@ -4,32 +4,18 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
-import fs from 'fs' // لاستيراد مكتبة نظام الملفات
-import path from 'path' // لاستيراد مكتبة المسارات
-
-// --- بداية الكود الديناميكي ---
-// هذه الدالة ستقرأ الصور من المجلد قبل بناء الصفحة
-const getImages = () => {
-  // نحدد المسار إلى مجلد الصور
-  const imagesDirectory = path.join(process.cwd(), 'public/images');
-  try {
-    // نقرأ أسماء جميع الملفات في المجلد
-    const filenames = fs.readdirSync(imagesDirectory);
-    // نقوم بإنشاء الروابط الصحيحة للصور
-    return filenames.map(filename => `/images/${filename}`);
-  } catch (error) {
-    console.error("Could not read the images directory:", error);
-    return []; // نرجع مصفوفة فارغة في حال حدوث خطأ
-  }
-};
-// --- نهاية الكود الديناميكي ---
-
 
 export default function Component() {
   const [emblaRef] = useEmblaCarousel({ loop: true }); 
   
-  // الآن، imageUrls يتم إنشاؤها تلقائياً
-  const imageUrls = getImages();
+  // === العودة إلى القائمة اليدوية المضمونة ===
+  // هذه الطريقة تعمل 100% لأنها لا تستخدم مكتبة 'fs' المحظورة في المتصفح
+  const imageUrls = [
+    "/images/namaa-1.jpg",
+    "/images/namaa-2.jpg",
+    "/images/namaa-3.jpg"
+    // إذا أردت إضافة صورة رابعة، فقط أضف "/images/namaa-4.jpg" هنا
+  ];
 
   return (
     <div key="1" className="flex flex-col min-h-[100dvh]" dir="rtl">
@@ -60,10 +46,7 @@ export default function Component() {
                     شريكك الموثوق لمواد البناء في جدة
                   </h1>
                   <p className="max-w-[600px] text-gray-300 md:text-xl">
-                    جودة، سرعة، وخدمة ذكية. تصفح كتالوجنا الرقمي، اطلب عرض سعر في دقائق، ودع مساعدنا الذكي يخدمك 24/7. جرب المشروع مجاناً لمدة 10 أيام.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                    كتالوجنا الرقمي، اطلب عرض سعر في دقائق، ودع مساعدنا الذكي يخدمك 24/7. className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md bg-yellow-400 px-8 text-sm font-medium text-gray-900 shadow transition-colors hover:bg-yellow-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-600 disabled:pointer-events-none disabled:opacity-50"
                     href="#"
@@ -79,27 +62,21 @@ export default function Component() {
                 </div>
               </div>
               
-              {/* === السلايدر الديناميكي === */}
+              {/* === السلايدر بالكود والتنسيقات الصحيحة === */}
               <div className="embla rounded-xl" ref={emblaRef}>
                 <div className="embla__container">
-                  {imageUrls.length > 0 ? (
-                    imageUrls.map((url, index) => (
-                      <div className="embla__slide" key={index}>
-                        <Image
-                          alt={`صورة عرض ${index + 1}`}
-                          className="aspect-square object-cover"
-                          src={url}
-                          width={550}
-                          height={550}
-                          priority={index === 0}
-                        />
-                      </div>
-                    ))
-                  ) : (
-                    <div className="embla__slide flex items-center justify-center bg-gray-800">
-                      <p>لا توجد صور لعرضها</p>
+                  {imageUrls.map((url, index) => (
+                    <div className="embla__slide" key={index}>
+                      <Image
+                        alt={`صورة المحل ${index + 1}`}
+                        className="aspect-square object-cover"
+                        src={url}
+                        width={550}
+                        height={550}
+                        priority={index === 0} // نعطي أولوية تحميل للصورة الأولى
+                      />
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
 
