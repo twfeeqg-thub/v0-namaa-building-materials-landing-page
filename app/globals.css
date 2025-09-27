@@ -119,7 +119,7 @@
   }
 }
 
-/* Embla Carousel Styles */
+/* === Embla Carousel Styles === */
 .embla {
   overflow: hidden;
 }
@@ -127,7 +127,6 @@
   display: flex;
 }
 .embla__slide {
-  position: relative;
   flex: 0 0 100%;
   min-width: 0;
 }
