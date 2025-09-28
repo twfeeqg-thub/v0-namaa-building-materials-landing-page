@@ -2,9 +2,8 @@
 
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes"
+import { type ThemeProviderProps } from "next-themes/dist/types"
 
-// هذا هو الكود الصحيح الذي يضيف خاصية children يدوياً
-export function ThemeProvider({ children, ...props }: ThemeProviderProps & { children: React.ReactNode }) {
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
