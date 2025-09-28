@@ -1,10 +1,23 @@
-// مسار الملف: app/category/[slug]/page.tsx
+// مسار الملف: app/category/[slug]/page.tsx (النسخة المصححة مع تعريف الأنواع)
 
 import Link from "next/link";
 import Image from "next/image";
 
-// بيانات وهمية للتجربة. لاحقاً ستأتي من نظام إدارة المحتوى.
-const categoryData: { [key: string]: any } = {
+// === بداية التعديل: تعريف أنواع البيانات ===
+interface Product {
+  name: string;
+  description: string;
+  image: string;
+}
+
+interface Category {
+  name: string;
+  products: Product[];
+}
+// === نهاية التعديل ===
+
+// بيانات وهمية للتجربة.
+const categoryData: { [key: string]: Category } = {
   "plumbing-tools": {
     name: "أدوات السباكة",
     products: [
@@ -22,6 +35,10 @@ const categoryData: { [key: string]: any } = {
     ],
   },
   // يمكنك إضافة بيانات الفئات الأخرى هنا بنفس الطريقة
+  "paints-and-finishes": { name: "الدهانات والتشطيبات", products: [] },
+  "construction-tools": { name: "أدوات البناء", products: [] },
+  "safety-equipment": { name: "معدات السلامة", products: [] },
+  "basic-materials": { name: "مواد البناء الأساسية", products: [] },
 };
 
 // هذا هو المكون الذي سيعرض الصفحة
@@ -38,13 +55,14 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
       </header>
       <main className="flex-1 p-4 md:p-8 lg:p-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {category.products.map((product, index) => (
+          {/* الآن TypeScript يعرف أن 'product' هو من نوع 'Product' */}
+          {category.products.map((product: Product, index: number) => (
             <div key={index} className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <Image
                 alt={`صورة ${product.name}`}
                 className="aspect-square w-full object-cover"
                 height={300}
-                src={product.image} // سنستخدم صورة افتراضية الآن
+                src={product.image}
                 width={300}
               />
               <div className="p-4">
