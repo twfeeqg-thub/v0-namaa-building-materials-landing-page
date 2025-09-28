@@ -36,9 +36,7 @@ export default function Component() {
                     جودة، سرعة، وخدمة ذكية. تصفح كتالوجنا الرقمي، اطلب عرض سعر في دقائق، ودع مساعدنا الذكي يخدمك 24/7.
                   </p>
                   <div className="w-full pt-2">
-                    <div className="inline-block rounded-lg bg-yellow-500/20 px-3 py-1 text-sm text-yellow-300">
-                      جرب المشروع مجاناً لمدة 10 أيام
-                    </div>
+                    
                   </div>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
