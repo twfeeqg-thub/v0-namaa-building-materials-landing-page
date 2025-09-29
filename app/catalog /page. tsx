@@ -1,0 +1,88 @@
+// مسار الملف: app/catalog/page.tsx
+// هذا هو الكود الكامل للنموذج الأولي للمعرض الافتراضي
+
+"use client"; //  مهم جدًا: هذا يخبر Next.js أن هذا المكون يعمل في المتصفح
+
+import React, { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
+import Link from "next/link";
+
+// --- مكونات النماذج ثلاثية الأبعاد ---
+
+// 1. مكون غرفة العرض
+function Showroom() {
+  const { scene } = useGLTF("/models/showroom.glb");
+  // نقوم بتكبير حجم الغرفة لتناسب المشهد
+  return <primitive object={scene} scale={2} position={[0, -1, 0]} />;
+}
+
+// 2. مكون خلاط الماء
+function Faucet() {
+  const { scene } = useGLTF("/models/faucet.glb");
+  // نضع النموذج في موقعه داخل الغرفة
+  return <primitive object={scene} position={[-3, 0, -2]} scale={3} />;
+}
+
+// 3. مكون المثقاب الكهربائي
+function Drill() {
+  const { scene } = useGLTF("/models/drill.glb");
+  return <primitive object={scene} position={[3, 1, -2]} scale={2} rotation-y={-Math.PI / 4} />;
+}
+
+// 4. مكون وحدة الإضاءة
+function Spotlight() {
+  const { scene } = useGLTF("/models/spotlight.glb");
+  return <primitive object={scene} position={[0, 1, -3]} scale={2} />;
+}
+
+// 5. مكون الصمام الكروي
+function Valve() {
+    const { scene } = useGLTF("/models/valve.glb");
+    return <primitive object={scene} position={[-1.5, 0, 0]} scale={1.5} rotation-y={Math.PI / 2} />;
+}
+
+
+// --- المكون الرئيسي لصفحة المعرض ---
+
+export default function CatalogPage() {
+  return (
+    <div className="w-full h-screen bg-gray-900 relative">
+      {/* زر العودة إلى الرئيسية */}
+      <Link href="/" className="absolute top-4 right-4 z-10 bg-white text-black px-4 py-2 rounded-md font-bold hover:bg-gray-200 transition">
+        → العودة إلى الرئيسية
+      </Link>
+
+      {/* رسالة إرشادية للمستخدم */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-black bg-opacity-50 text-white px-4 py-2 rounded-md text-sm">
+        استخدم الفأرة للدوران والتقريب والتبعيد
+      </div>
+
+      <Canvas camera={{ position: [0, 2, 8], fov: 50 }}>
+        {/* Suspense هو مكون لعرض شيء ما (مثل "جاري التحميل") أثناء تحميل النماذج */}
+        <Suspense fallback={null}>
+          
+          {/* 1. الإضاءة */}
+          {/* إضاءة محيطة خفيفة لضمان عدم وجود مناطق سوداء بالكامل */}
+          <ambientLight intensity={0.5} />
+          {/* إضاءة اتجاهية قوية تحاكي الشمس أو مصدر ضوء رئيسي */}
+          <directionalLight position={[5, 5, 5]} intensity={1.5} />
+          {/* إضاءة البيئة تضيف انعكاسات واقعية على الأجسام المعدنية */}
+          <Environment preset="city" />
+
+          {/* 2. النماذج */}
+          <Showroom />
+          <Faucet />
+          <Drill />
+          <Spotlight />
+          <Valve />
+
+          {/* 3. عناصر التحكم */}
+          {/* هذا المكون يسمح للمستخدم بالتحكم في الكاميرا (الدوران، التقريب) */}
+          <OrbitControls />
+
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+}
