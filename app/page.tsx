@@ -171,22 +171,22 @@ export default function Component() {
             </div>
           </div>
         </section>     
-      
-              {/* === قسم خريطة الموقع === */}
+        {/* === قسم خريطة الموقع === */}
         <section id="location" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl" style={{ color: '#367588' }}>موقعنا</h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  تفضل بزيارتنا في حي الريان بجدة. فريقنا في انتظار خدمتك.
+                  تفضل بزيارتنا. فريقنا في انتظار خدمتك.
                 </p>
               </div>
             </div>
             <div className="mx-auto mt-12" style={{ maxWidth: '900px' }}>
               <div className="overflow-hidden rounded-lg shadow-lg">
+                {/* --- هذا هو الكود الذي أرسلته --- */}
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.990812551408!2d39.22239387593889!3d21.39001897236941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d8195413753b%3A0x8c6035256d35339a!2z2YbYp9iv2KfYsSDZgdin2YTZhdmG2KfZgiDYqNmG2YXYp9ivINmF2K_Zgdi2INin2YTYs9i52YjYr9mK2Kk!5e0!3m2!1sar!2ssa!4v1695000000000!5m2!1sar!2ssa" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3706.955136711288!2d39.21609012569024!3d21.70446676422997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c17d8e733ca36f%3A0xb02abc898d2675f0!2z2YbZhdin2KEg2YTZhdmI2KfYryDYp9mE2KjZhtin2KE!5e0!3m2!1sar!2s!4v1759657842918!5m2!1sar!2s" 
                   width="100%" 
                   height="450" 
                   style={{ border: 0 }} 
@@ -198,13 +198,7 @@ export default function Component() {
             </div>
           </div>
         </section>
-
-
-
-
-
-
-      
+     
       {/* === Footer: تم تعديل معلومات الاتصال والألوان === */}
       <footer id="contact" className="bg-gray-100 p-6 md:py-8 w-full">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
