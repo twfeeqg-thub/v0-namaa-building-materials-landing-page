@@ -159,12 +159,20 @@ export default function AssistantInteractivePage() {
           </div>
           <div className="mt-10">
             <p className="text-2xl md:text-3xl font-bold">هل أنت مستعد لتفعيل نسختك الخاصة قبل أن يسبقك الآخرون؟</p>
-            <Link 
-              href="/" // يمكن تغيير هذا الرابط لاحقًا إلى فورم حقيقي
-              className="mt-6 inline-block bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
-            >
-              نعم، ابدأ في بناء المساعد الخاص بي الآن!
-            </Link>
+            
+            
+            
+                    <Link 
+          href="/activation" // تم التحديث هنا
+          className="mt-6 inline-block bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
+        >
+          نعم، وماهو المطلوب مني لبناء المساعد الخاص بي الآن!
+        </Link>
+
+
+
+
+            
           </div>
         </div>
       );
