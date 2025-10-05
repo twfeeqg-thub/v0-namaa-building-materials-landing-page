@@ -92,12 +92,17 @@ export default function Component() {
                   >
                     تصفح الكتالوج
                   </Link>
-                  <Link
+
+                                    <Link
                     className="pulsing-button inline-flex h-10 items-center justify-center rounded-md border bg-transparent px-8 text-sm font-medium shadow-sm transition-all duration-300 focus-visible:outline-none"
-                    href="#"
+                    href="/assistant"
                   >
                     تحدث مع المساعد الذكي
                   </Link>
+
+
+
+                  
                 </div>
               </div>
               <div className="flex flex-col gap-4">
