@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 
-// --- الأيقونات كما هي في الكود الأصلي ---
+// --- الأيقونات ---
 function BoltIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -197,6 +197,7 @@ export default function Component() {
             </div>
           </div>
         </section>
+      </main>
      
       <footer id="contact" className="bg-gray-100 p-6 md:py-8 w-full">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
