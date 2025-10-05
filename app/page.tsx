@@ -171,6 +171,32 @@ export default function Component() {
             </div>
           </div>
         </section>
+        {/* === قسم خريطة الموقع === */}
+        <section id="location" className="w-full py-12 md:py-24 lg:py-32 bg-white">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl" style={{ color: '#367588' }}>موقعنا</h2>
+                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  تفضل بزيارتنا في حي الريان بجدة. فريقنا في انتظار خدمتك.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto mt-12" style={{ maxWidth: '900px' }}>
+              <div className="overflow-hidden rounded-lg shadow-lg">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118887.1895562107!2d39.15022804335937!3d21.444931800000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3cf90526e1b31%3A0x3443854333650d1d!2sAl%20Rayan%2C%20Jeddah%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1728088055714!5m2!1sen!2sus"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
 
 
       
