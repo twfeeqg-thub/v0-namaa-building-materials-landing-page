@@ -204,18 +204,18 @@ export default function Component() {
             <h3 className="text-lg font-bold" style={{ color: '#367588' }}>نماء لمواد البناء</h3>
             <p className="text-sm text-gray-600">شريكك الموثوق في عالم البناء.</p>
           </div>
-         {/* ===       <div className="space-y-2">
-            <h3 className="text-lg font-bold" style={{ color: '#367588' }}>روابط سريعة</h3>
+          <div className="space-y-2">
+            <h3 className="text-lg font-bold" style={{ color: '#367588' }}>خدماتنا</h3>
             <nav className="flex flex-col space-y-1">
-              <Link href="#catalog" className="text-sm hover:underline">الكتالوج</Link>
-              <Link href="#" className="text-sm hover:underline">سياسة الخصوصية</Link>
+              <Link href="#catalog" className="text-sm hover:underline text-gray-600">الكتالوج</Link>
+              <Link href="#" className="text-sm hover:underline text-gray-600">سياسة الخصوصية</Link>
             </nav> 
-          </div> === */}
+          </div>
           <div className="space-y-2">
             <h3 className="text-lg font-bold" style={{ color: '#367588' }}>اتصل بنا</h3>
             <div className="space-y-1 text-sm text-gray-600">
               <p>جوال: 056 206 1338</p>
-              {/* ===      <p>بريد إلكتروني: nabm2030@gmail.com</p>=== */}
+              <p>بريد إلكتروني: nabm2030@gmail.com</p>
               <p>س.ت: ٤٠٣٠٢٩٨٦٤٠</p>
             </div>
           </div>
@@ -225,5 +225,5 @@ export default function Component() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
