@@ -174,7 +174,7 @@ export default function Component() {
       
       
       
-      {/* === قسم خريطة الموقع === */}
+              {/* === قسم خريطة الموقع === */}
         <section id="location" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -188,7 +188,7 @@ export default function Component() {
             <div className="mx-auto mt-12" style={{ maxWidth: '900px' }}>
               <div className="overflow-hidden rounded-lg shadow-lg">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14859.483445831958!2d39.22019045!3d21.4141604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d8195413753b%3A0x8c6035256d35339a!2sAl%20Rayan%2C%20Jeddah%2023741%2C%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1728088835156!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.990812551408!2d39.2249688!3d21.4141604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d8195413753b%3A0x8c6035256d35339a!2z2YbYp9iv2KfYsSDZgdin2YTZhdmG2KfZgiDYqNmG2YXYp9ivINmF2K_Zgdi2INin2YTYs9i52YjYr9mK2Kk!5e0!3m2!1sen!2sus!4v1728089450125!5m2!1sen!2sus"
                   width="100%"
                   height="450"
                   style={{ border: 0 }}
@@ -200,6 +200,7 @@ export default function Component() {
             </div>
           </div>
         </section>
+
 
 
 
