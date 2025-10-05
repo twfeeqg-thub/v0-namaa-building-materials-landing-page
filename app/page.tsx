@@ -58,34 +58,22 @@ function WrenchIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function Component() {
   return (
-    <div key="1" className="flex flex-col min-h-[100dvh] bg-white" dir="rtl">
-      {/* === Header: تم تعديل الشعار === */}
-      <header className="px-4 lg:px-6 h-16 flex items-center shadow-sm bg-white">
-        <Link className="flex items-center justify-center" href="#">
-          <img src="/logo.png" alt="شعار نماء لمواد البناء" className="h-12 w-auto" />
-          <span className="sr-only">نماء لمواد البناء</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-sm font-medium hover:underline underline-offset-4 text-gray-700" href="/">الرئيسية</Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4 text-gray-700" href="#catalog">الكتالوج</Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4 text-gray-700" href="#contact">تواصل معنا</Link>
-        </nav>
-      </header>
-      <main className="flex-1">
-        {/* === Hero Section: تم إعادة التصميم الأصلي مع تعديل الألوان والنصوص === */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none" style={{ color: '#367588' }}>
-                    شريكك الموثوق لمواد البناء
-                  </h1>
-                  <p className="max-w-[600px] text-gray-600 md:text-xl">
-                    جودة، سرعة، وخدمة مميزة. تصفح كتالوجنا الشامل، واطلب كل ما تحتاجه لمشروعك بسهولة.
-                  </p>
+                    <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <Link
+                    className="inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-white shadow transition-colors hover:bg-teal-700 focus-visible:outline-none"
+                    href="#catalog"
+                    style={{ backgroundColor: '#367588' }}
+                  >
+                    تصفح الكتالوج
+                  </Link>
+                  <Link
+                    className="pulsing-button inline-flex h-10 items-center justify-center rounded-md border bg-transparent px-8 text-sm font-medium shadow-sm transition-all duration-300 focus-visible:outline-none"
+                    href="#"
+                  >
+                    تحدث مع المساعد الذكي
+                  </Link>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-white shadow transition-colors focus-visible:outline-none"
                     href="#catalog"
