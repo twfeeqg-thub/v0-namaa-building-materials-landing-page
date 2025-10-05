@@ -58,7 +58,33 @@ function WrenchIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function Component() {
   return (
-                    <div className="flex flex-col gap-2 min-[400px]:flex-row">
+    <div key="1" className="flex flex-col min-h-[100dvh] bg-white" dir="rtl">
+      <header className="px-4 lg:px-6 h-16 flex items-center shadow-sm bg-white">
+        <Link className="flex items-center justify-center" href="#">
+          <img src="/logo.png" alt="شعار نماء لمواد البناء" className="h-12 w-auto" />
+          <span className="sr-only">نماء لمواد البناء</span>
+        </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link className="text-sm font-medium hover:underline underline-offset-4 text-gray-700" href="/">الرئيسية</Link>
+          <Link className="text-sm font-medium hover:underline underline-offset-4 text-gray-700" href="#catalog">الكتالوج</Link>
+          <Link className="text-sm font-medium hover:underline underline-offset-4 text-gray-700" href="#about">من نحن</Link>
+          <Link className="text-sm font-medium hover:underline underline-offset-4 text-gray-700" href="#contact">تواصل معنا</Link>
+        </nav>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none" style={{ color: '#367588' }}>
+                    شريكك الموثوق لمواد البناء
+                  </h1>
+                  <p className="max-w-[600px] text-gray-600 md:text-xl">
+                    جودة، سرعة، وخدمة ذكية. تصفح كتالوجنا الرقمي، ودع مساعدنا الذكي يخدمك 24/7.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-white shadow transition-colors hover:bg-teal-700 focus-visible:outline-none"
                     href="#catalog"
@@ -73,17 +99,7 @@ export default function Component() {
                     تحدث مع المساعد الذكي
                   </Link>
                 </div>
-
-                  <Link
-                    className="inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-white shadow transition-colors focus-visible:outline-none"
-                    href="#catalog"
-                    style={{ backgroundColor: '#367588' }}
-                  >
-                    تصفح الكتالوج
-                  </Link>
-                </div>
               </div>
-              {/* --- قسم الصور المتعددة الأصلي --- */}
               <div className="flex flex-col gap-4">
                 <div className="w-full overflow-hidden rounded-xl">
                   <Image alt="واجهة محل نماء لمواد البناء" className="aspect-video w-full object-cover" height="340" src="/images/namaa-1.jpg" width="600" />
@@ -100,7 +116,6 @@ export default function Component() {
           </div>
         </section>
         
-        {/* === Catalog Section: تم إعادة الروابط وتعديل ألوان الأيقونات === */}
         <section id="catalog" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -139,10 +154,7 @@ export default function Component() {
             </div>
           </div>
         </section> 
-      </main>
-
       
-        {/* === قسم "من نحن" الجديد === */}
         <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -159,7 +171,7 @@ export default function Component() {
             </div>
           </div>
         </section>     
-        {/* === قسم خريطة الموقع === */}
+        
         <section id="location" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -172,7 +184,6 @@ export default function Component() {
             </div>
             <div className="mx-auto mt-12" style={{ maxWidth: '900px' }}>
               <div className="overflow-hidden rounded-lg shadow-lg">
-                {/* --- هذا هو الكود الذي أرسلته --- */}
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3706.955136711288!2d39.21609012569024!3d21.70446676422997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c17d8e733ca36f%3A0xb02abc898d2675f0!2z2YbZhdin2KEg2YTZhdmI2KfYryDYp9mE2KjZhtin2KE!5e0!3m2!1sar!2s!4v1759657842918!5m2!1sar!2s" 
                   width="100%" 
@@ -187,7 +198,6 @@ export default function Component() {
           </div>
         </section>
      
-      {/* === Footer: تم تعديل معلومات الاتصال والألوان === */}
       <footer id="contact" className="bg-gray-100 p-6 md:py-8 w-full">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
           <div className="space-y-2">
