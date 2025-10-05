@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* أضف هذا الكود في نهاية الملف */
+
+/* تعريف حركة النبض */
+@keyframes pulse-shadow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(54, 117, 136, 0.7);
+  }
+  70% {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px 15px rgba(54, 117, 136, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(54, 117, 136, 0);
+  }
+}
+
+/* تطبيق الحركة على كلاس جديد باسم .pulsing-button */
+.pulsing-button {
+  animation: pulse-shadow 2s infinite;
+  border-color: #367588; /* لون الحدود ليتناسب مع الهوية */
+  color: #367588; /* لون النص ليتناسب مع الهوية */
+}
+
+/* تأثير عند مرور الماوس: إيقاف النبض وتغيير الألوان */
+.pulsing-button:hover {
+  animation: none; /* إيقاف حركة النبض */
+  background-color: #367588; /* تغيير الخلفية إلى اللون الأساسي */
+  color: white; /* تغيير لون النص إلى الأبيض */
+  transform: scale(1.05); /* تكبير بسيط للزر */
+}
+
+/* تأثير عند النقر على الزر */
+.pulsing-button:active {
+  transform: scale(0.98); /* تصغير بسيط لإعطاء إحساس بالنقر */
+}
