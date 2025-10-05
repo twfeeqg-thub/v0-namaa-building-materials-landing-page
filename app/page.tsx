@@ -161,10 +161,10 @@ export default function Component() {
           </div>
           <div className="space-y-2">
             <h3 className="text-lg font-bold" style={{ color: '#367588' }}>روابط سريعة</h3>
-            <nav className="flex flex-col space-y-1">
+           {/* ===       <nav className="flex flex-col space-y-1">
               <Link href="#catalog" className="text-sm hover:underline">الكتالوج</Link>
               <Link href="#" className="text-sm hover:underline">سياسة الخصوصية</Link>
-            </nav>
+            </nav>=== */}=== */}
           </div>
           <div className="space-y-2">
             <h3 className="text-lg font-bold" style={{ color: '#367588' }}>اتصل بنا</h3>
