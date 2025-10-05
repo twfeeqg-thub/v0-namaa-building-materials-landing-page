@@ -150,8 +150,30 @@ export default function Component() {
               </Link>
             </div>
           </div>
-        </section>
+        </section> 
       </main>
+
+      
+        {/* === قسم "من نحن" الجديد === */}
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl" style={{ color: '#367588' }}>من نحن</h2>
+                <p className="max-w-[900px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  في قلب مدينة جدة، ومنذ تأسيسنا، وضعنا في نماء لمواد البناء هدفًا واحدًا نصب أعيننا: أن نكون الشريك الأكثر ثقة للمقاولين، المهندسين، وأصحاب المنازل في كل ما يتعلق بالبناء والتشييد.
+                  <br /><br />
+                  نحن نؤمن بأن كل مشروع، كبيرًا كان أم صغيرًا، هو حلم يستحق أن يُبنى بأفضل المواد وأعلى معايير الجودة. لذلك، نحرص على توفير تشكيلة واسعة ومتكاملة من مواد البناء، الأدوات، والتشطيبات من أفضل العلامات التجارية المحلية والعالمية.
+                  <br /><br />
+                  فريق عملنا يمتلك الخبرة العميقة في هذا المجال، وهو على أتم الاستعداد لتقديم المشورة الفنية والمساعدة في اختيار المنتجات الأنسب لاحتياجاتكم، لضمان تحقيق رؤيتكم بأفضل صورة ممكنة. في نماء، نحن لا نبيع مواد البناء فحسب، بل نبني معكم أساسًا متينًا للثقة والنجاح.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+      
       {/* === Footer: تم تعديل معلومات الاتصال والألوان === */}
       <footer id="contact" className="bg-gray-100 p-6 md:py-8 w-full">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
