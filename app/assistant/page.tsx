@@ -56,7 +56,7 @@ export default function AssistantPage() {
             {/* === التعديل الجوهري هنا === */}
             <Link 
               href="/assistant/demo" //  تم تغيير الرابط إلى صفحة التجربة التفاعلية
-              className="mt-6 inline-block bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
+              className="pulsing-button mt-6 inline-block bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
             >
               نعم، أريد هذه الميزة!
             </Link>
