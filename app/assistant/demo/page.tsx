@@ -14,7 +14,7 @@ function ScenarioButton({ onClick, children, disabled }: { onClick: () => void; 
       {children}
     </button>
   );
-} // *** القوس الذي كان مفقودًا تم إعادته هنا ***
+}
 
 export default function AssistantInteractivePage() {
   const [stage, setStage] = useState('intro');
@@ -39,9 +39,10 @@ export default function AssistantInteractivePage() {
           <h1 className="text-3xl md:text-5xl font-extrabold text-yellow-400 mb-4">أهلاً بك أستاذ توفيق.</h1>
           <p className="text-xl md:text-2xl text-gray-200 mb-8">أنا مساعدك الرقمي، جاهز للعمل على مدار الساعة. لقد حللت آلاف التفاعلات واكتشفت أن معظم الأرباح الضائعة تأتي من 3 مواقف رئيسية.</p>
           <p className="text-2xl md:text-3xl font-bold mb-6">دعنا نختبر كيف يمكنني تحويل هذه المواقف من خسارة إلى ربح.</p>
+          {/* === الزر الأول: تم إضافة كلاس pulsing-button === */}
           <button 
             onClick={() => setStage('choices')}
-            className="bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
+            className="pulsing-button bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
           >
             اختر سيناريو لتبدأ
           </button>
@@ -68,7 +69,8 @@ export default function AssistantInteractivePage() {
           </div>
           {allDone && (
             <div className="mt-10">
-              <button onClick={() => setStage('final')} className="bg-green-500 text-white font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-green-600 transition-transform transform hover:scale-105">
+              {/* === الزر الثاني: تم إضافة كلاس pulsing-button وتوحيد اللون === */}
+              <button onClick={() => setStage('final')} className="pulsing-button bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105">
                 شاهد الخلاصة النهائية
               </button>
             </div>
@@ -159,20 +161,13 @@ export default function AssistantInteractivePage() {
           </div>
           <div className="mt-10">
             <p className="text-2xl md:text-3xl font-bold">هل أنت مستعد لتفعيل نسختك الخاصة قبل أن يسبقك الآخرون؟</p>
-            
-            
-            
-                    <Link 
-          href="/activation" // تم التحديث هنا
-          className="mt-6 inline-block bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
-        >
-          نعم، وماهو المطلوب مني لبناء المساعد الخاص بي الآن!
-        </Link>
-
-
-
-
-            
+            {/* === الزر الثالث: تم إضافة كلاس pulsing-button === */}
+            <Link 
+              href="/activation"
+              className="pulsing-button mt-6 inline-block bg-yellow-400 text-gray-900 font-bold text-xl py-3 px-10 rounded-lg shadow-lg hover:bg-yellow-500 transition-transform transform hover:scale-105"
+            >
+              نعم، ابدأ في بناء المساعد الخاص بي الآن!
+            </Link>
           </div>
         </div>
       );
