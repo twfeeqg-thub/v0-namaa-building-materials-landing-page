@@ -220,8 +220,8 @@ export default function Component() {
           <div className="space-y-2">
             <h3 className="text-lg font-bold" style={{ color: '#367588' }}>اتصل بنا</h3>
             <div className="space-y-1 text-sm text-gray-600">
-              <p>جوال: 056 206 1338</p>
-              <p>بريد إلكتروني: nabm2030@gmail.com</p>
+              <p>جوال: ‏‪+966 55 911 6926‬‏</p>
+              
               <p>س.ت: ٤٠٣٠٢٩٨٦٤٠</p>
             </div>
           </div>
