@@ -1,8 +1,9 @@
-'use client'; // هذا المكون تفاعلي، لذا نحتاج هذا السطر
+'use client';
 
 import { useState } from 'react';
+import ChatWindow from './ChatWindow'; // 1. استيراد نافذة الدردشة
 
-// أيقونة الذكاء الصناعي التي ستكون داخل الزر
+// أيقونة الذكاء الصناعي (تبقى كما هي)
 const AiIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9.5 13a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1 5 0Z" />
@@ -14,29 +15,29 @@ const AiIcon = () => (
 );
 
 export default function SmartAmbassador() {
-  // في المستقبل، هذا الزر سيفتح نافذة الدردشة
-  const handleIconClick = () => {
-    // سنضيف منطق فتح النافذة هنا لاحقًا
-    console.log("Smart Ambassador Clicked!");
+  const [isChatOpen, setChatOpen] = useState(false); // 2. إضافة حالة لفتح/إغلاق النافذة
+
+  const toggleChatWindow = () => {
+    setChatOpen(!isChatOpen);
   };
 
   return (
-    <button
-      onClick={handleIconClick}
-      className="fixed bottom-6 right-6 h-16 w-16 rounded-full flex items-center justify-center text-white shadow-lg cursor-pointer transition-all duration-300 ease-in-out group z-50"
-      style={{ backgroundColor: '#367588' }} // استخدام لون الهوية البصرية
-      aria-label="افتح محادثة مع المساعد الذكي"
-    >
-      {/* الطبقة الخارجية للتوهج النابض */}
-      <div className="absolute inset-0 rounded-full bg-teal-600 opacity-75 animate-pulse-slow group-hover:animate-none"></div>
-      
-      {/* الطبقة الداخلية التي تتوسع عند المرور */}
-      <div className="absolute inset-0 rounded-full bg-teal-700 transform scale-100 group-hover:scale-110 transition-transform duration-300"></div>
-      
-      {/* أيقونة الذكاء الصناعي في المنتصف */}
-      <div className="relative z-10">
-        <AiIcon />
-      </div>
-    </button>
+    <>
+      <button
+        onClick={toggleChatWindow} // 3. تحديث الإجراء عند النقر
+        className="fixed bottom-6 right-6 h-16 w-16 rounded-full flex items-center justify-center text-white shadow-lg cursor-pointer transition-all duration-300 ease-in-out group z-50"
+        style={{ backgroundColor: '#367588' }}
+        aria-label="افتح محادثة مع المساعد الذكي"
+      >
+        <div className="absolute inset-0 rounded-full bg-teal-600 opacity-75 animate-pulse-slow group-hover:animate-none"></div>
+        <div className="absolute inset-0 rounded-full bg-teal-700 transform scale-100 group-hover:scale-110 transition-transform duration-300"></div>
+        <div className="relative z-10">
+          <AiIcon />
+        </div>
+      </button>
+
+      {/* 4. استدعاء نافذة الدردشة وتمرير الحالة إليها */}
+      <ChatWindow isOpen={isChatOpen} onClose={() => setChatOpen(false)} />
+    </>
   );
 }
