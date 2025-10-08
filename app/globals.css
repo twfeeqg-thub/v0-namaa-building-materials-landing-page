@@ -33,3 +33,20 @@
 .pulsing-button:active {
   transform: scale(0.98);
 }
+/* ... (الأكواد الموجودة مسبقًا) ... */
+
+/* حركة النبض الهادئة لأيقونة السفير الذكي */
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
