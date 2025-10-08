@@ -2,7 +2,6 @@
 // DigitalExpert.ts - الخبير الرقمي لمتجر نماء لمواد البناء (الإصدار 3.0)
 // =================================================================================
 
-// [تعديل رئيسي] تصدير الواجهة لجعلها قابلة للاستيراد في المكونات الأخرى
 export interface SmartReply {
   reply: string;
   newName: string | null;
@@ -13,43 +12,41 @@ const products: { [key: string]: any } = {
   "اسمنت": {
     name: "أسمنت مقاوم",
     description: "أسمنت بورتلاندي عالي الجودة، مثالي لجميع أنواع الإنشاءات الخرسانية.",
-    price: 20, // سعر الكيس الواحد
-    bulkPrice: 18, // سعر الكيس للكميات (50 كيس أو أكثر)
+    price: 20,
+    bulkPrice: 18,
     technical: { "قوة الضغط": "52.5 نيوتن/مم²", "الاستخدام": "الأعمدة والأساسات", "مقاومة الكبريتات": "عالية" }
   },
   "حديد تسليح": {
     name: "حديد تسليح (سابك)",
     description: "حديد تسليح عالي المتانة مطابق للمواصفات السعودية.",
-    price: 2800, // سعر الطن
-    bulkPrice: 2750, // سعر الطن للكميات (10 طن أو أكثر)
+    price: 2800,
+    bulkPrice: 2750,
     technical: { "القطر": "متوفر من 8مم إلى 32مم", "قوة الشد": "600 نيوتن/مم²", "الشركة المصنعة": "سابك" }
   },
   "بلوك": {
     name: "بلوك أسمنتي",
     description: "بلوك أسمنتي مصمت ومعزول للبناء والجدران.",
-    price: 3, // سعر البلوكة الواحدة
-    bulkPrice: 2.7, // سعر البلوكة للكميات (1000 بلوكة أو أكثر)
+    price: 3,
+    bulkPrice: 2.7,
     technical: { "الأبعاد": "20x20x40 سم", "العزل": "متوفر نوع معزول بالبوليسترين", "الكثافة": "1200 كجم/م³" }
   },
   "رمل": {
     name: "رمل أبيض (نظيف)",
     description: "رمل أبيض نظيف ومغسول، مناسب لأعمال اللياسة والخلطات.",
-    price: 120, // سعر المتر المكعب
-    bulkPrice: 110, // سعر المتر المكعب للكميات (قلاب كامل - 20م³ أو أكثر)
+    price: 120,
+    bulkPrice: 110,
     technical: { "نوع المعالجة": "مغسول ونظيف", "الشوائب": "أقل من 2%", "مناسب لـ": "اللياسة، الخرسانة، الدفان" }
   },
   "خرسانة جاهزة": {
     name: "خرسانة جاهزة",
     description: "خرسانة جاهزة حسب الطلب لمختلف إجهادات الضغط.",
-    price: 210, // سعر المتر المكعب (إجهاد 2500)
-    bulkPrice: 200, // للكميات الكبيرة
+    price: 210,
+    bulkPrice: 200,
     technical: { "الإجهاد": "متوفر من 2500 إلى 7000 psi", "التسليم": "عبر مضخات حديثة", "الاعتماد": "معتمدة من البلديات" }
   }
 };
 
 // --- دوال مساعدة ---
-
-// دالة للتحقق من وجود اسم المنتج في الرسالة
 const findProductInMessage = (message: string): string | null => {
   const lowerCaseMessage = message.toLowerCase();
   for (const productKey in products) {
@@ -60,7 +57,6 @@ const findProductInMessage = (message: string): string | null => {
   return null;
 };
 
-// دالة لاستخراج اسم العميل من الرسالة
 const extractName = (message: string): string | null => {
   const namePatterns = [
     /اسمي\s+([أ-ي]+)/,
@@ -70,8 +66,8 @@ const extractName = (message: string): string | null => {
   ];
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
-    if (match && match[1]) {
-      return match[1];
+    if (match && match) {
+      return match;
     }
   }
   return null;
@@ -83,7 +79,6 @@ export const getSmartReply = (message: string, currentName: string | null = null
   let newName = extractName(message);
   const customerName = newName || currentName;
 
-  // 1. التحية والتعرف على الاسم
   if (newName) {
     return { reply: `يا هلا فيك يا ${newName}، نورتنا! كيف أقدر أخدمك؟`, newName: newName };
   }
@@ -92,7 +87,6 @@ export const getSmartReply = (message: string, currentName: string | null = null
     return { reply: `${greeting}. كيف أقدر أخدمك اليوم؟`, newName: null };
   }
 
-  // 2. الاستعلام عن السعر
   if (lowerCaseMessage.includes("سعر") || lowerCaseMessage.includes("بكم")) {
     const productKey = findProductInMessage(lowerCaseMessage);
     if (productKey) {
@@ -105,21 +99,20 @@ export const getSmartReply = (message: string, currentName: string | null = null
     return { reply: "ياليت تحدد لي المادة اللي تسأل عن سعرها عشان أقدر أفيدك.", newName: null };
   }
 
-  // 3. المقارنات الفنية
   if (lowerCaseMessage.includes("مقارنة") || lowerCaseMessage.includes("أفضل") || lowerCaseMessage.includes("ايش الفرق")) {
     const productKeys = Object.keys(products).filter(p => lowerCaseMessage.includes(p));
     if (productKeys.length >= 2) {
-      const p1 = products[productKeys[0]];
-      const p2 = products[productKeys[1]];
+      const p1 = products[productKeys];
+      const p2 = products[productKeys];
+      // [تصحيح] استخدام علامات التنصيص الفردية بدلاً من المزدوجة
       return {
-        reply: `مقارنة سريعة: ${p1.name} يتميز بـ "${p1.technical.الاستخدام || p1.technical.الشركة المصنعة}" وسعره ${p1.price} ريال، بينما ${p2.name} يتميز بـ "${p2.technical.الاستخدام || p2.technical.الشركة المصنعة}" وسعره ${p2.price} ريال. الاختيار يعتمد على احتياجك.`,
+        reply: `مقارنة سريعة: ${p1.name} يتميز بـ '${p1.technical.الاستخدام || p1.technical.الشركة المصنعة}' وسعره ${p1.price} ريال، بينما ${p2.name} يتميز بـ '${p2.technical.الاستخدام || p2.technical.الشركة المصنعة}' وسعره ${p2.price} ريال. الاختيار يعتمد على احتياجك.`,
         newName: null
       };
     }
     return { reply: "للمقارنة، أحتاج أعرف المادتين اللي تبغى تقارن بينها.", newName: null };
   }
 
-  // 4. الاستعلام عن منتج معين
   const productKey = findProductInMessage(lowerCaseMessage);
   if (productKey) {
     const product = products[productKey];
@@ -129,13 +122,11 @@ export const getSmartReply = (message: string, currentName: string | null = null
     };
   }
 
-  // 5. الردود الافتراضية والختامية
   if (lowerCaseMessage.includes("شكرا")) {
     const replyText = customerName ? `العفو يا ${customerName}. في الخدمة دايمًا.` : "العفو، في الخدمة دايمًا.";
     return { reply: replyText, newName: null };
   }
 
-  // رد افتراضي في حالة عدم فهم السؤال
   const fallbackReplies = [
     "معليش، ما فهمت عليك. ممكن توضح سؤالك؟",
     "العذر منك، هذي خارج نطاق معرفتي حاليًا. هل فيه سؤال ثاني عن مواد البناء؟",
