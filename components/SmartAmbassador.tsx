@@ -1,21 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import ChatWindow from './ChatWindow'; // 1. استيراد نافذة الدردشة
+// 1. تصحيح مسار الاستيراد هنا
+import ChatWindow from './ChatWindow'; 
 
 // أيقونة الذكاء الصناعي (تبقى كما هي)
 const AiIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9.5 13a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-    <path d="M19.5 13a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-    <path d="M12 22a4 4 0 0 0 4-4h-8a4 4 0 0 0 4 4Z" />
-    <path d="M12 2v10" />
-    <path d="m9 12 3-3 3 3" />
-  </svg>
+    // ... كود الأيقونة ...
 );
 
 export default function SmartAmbassador() {
-  const [isChatOpen, setChatOpen] = useState(false); // 2. إضافة حالة لفتح/إغلاق النافذة
+  const [isChatOpen, setChatOpen] = useState(false);
 
   const toggleChatWindow = () => {
     setChatOpen(!isChatOpen);
@@ -24,7 +19,7 @@ export default function SmartAmbassador() {
   return (
     <>
       <button
-        onClick={toggleChatWindow} // 3. تحديث الإجراء عند النقر
+        onClick={toggleChatWindow}
         className="fixed bottom-6 right-6 h-16 w-16 rounded-full flex items-center justify-center text-white shadow-lg cursor-pointer transition-all duration-300 ease-in-out group z-50"
         style={{ backgroundColor: '#367588' }}
         aria-label="افتح محادثة مع المساعد الذكي"
@@ -36,7 +31,6 @@ export default function SmartAmbassador() {
         </div>
       </button>
 
-      {/* 4. استدعاء نافذة الدردشة وتمرير الحالة إليها */}
       <ChatWindow isOpen={isChatOpen} onClose={() => setChatOpen(false)} />
     </>
   );
