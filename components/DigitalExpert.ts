@@ -1,6 +1,5 @@
 // =================================================================================
-// DigitalExpert.ts - (النسخة الختامية النهائية للنموذج الأولي)
-// يجمع بين قاعدة المنتجات الموسعة وجميع نقاط المعرفة الأخرى.
+// DigitalExpert.ts - (النسخة الختامية النهائية مع تصحيح TypeScript)
 // =================================================================================
 
 export interface SmartReply {
@@ -8,8 +7,30 @@ export interface SmartReply {
   newName: string | null;
 }
 
+// --- [تصحيح TypeScript] تعريف بنية صارمة للبيانات ---
+interface Product {
+  name: string;
+  keywords: string[];
+  category: string;
+  brand: string;
+  price: number;
+  bulkPrice: number;
+  use_case: string;
+}
+
+interface Products {
+  [key: string]: Product;
+}
+
 // --- الموسوعة المعرفية الشاملة (عقل الخبير) ---
-const knowledgeBase = {
+// تم تطبيق النوع الجديد هنا لضمان سلامة الكود
+const knowledgeBase: {
+  products: Products;
+  logistics: any;
+  payment: any;
+  expertise: any;
+  storeInfo: any;
+} = {
   // 1. المنتجات (القائمة الموسعة بالكامل)
   products: {
     "cement-standard": { name: "أسمنت بورتلاندي عادي", keywords: ["اسمنت عادي"], category: "أسمنتيات", brand: "أسمنت العربية", price: 18, bulkPrice: 17, use_case: "للأعمال الداخلية العامة واللياسة." },
@@ -88,6 +109,7 @@ const knowledgeBase = {
 // --- دوال مساعدة ---
 const findProductInMessage = (message: string): string | null => {
     const lowerCaseMessage = message.toLowerCase();
+    // السطر 92 الذي كان به الخطأ
     for (const productKey in knowledgeBase.products) {
         const product = knowledgeBase.products[productKey];
         for (const keyword of product.keywords) {
