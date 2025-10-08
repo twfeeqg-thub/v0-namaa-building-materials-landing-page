@@ -1,12 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-// 1. تصحيح مسار الاستيراد هنا
-import ChatWindow from './ChatWindow'; 
+import ChatWindow from './ChatWindow';
 
-// أيقونة الذكاء الصناعي (تبقى كما هي)
+// أيقونة الذكاء الصناعي التي ستكون داخل الزر
 const AiIcon = () => (
-    // ... كود الأيقونة ...
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9.5 13a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+    <path d="M19.5 13a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+    <path d="M12 22a4 4 0 0 0 4-4h-8a4 4 0 0 0 4 4Z" />
+    <path d="M12 2v10" />
+    <path d="m9 12 3-3 3 3" />
+  </svg>
 );
 
 export default function SmartAmbassador() {
