@@ -1,5 +1,5 @@
 // =================================================================================
-// DigitalExpert.ts - (النسخة النهائية الشاملة - دمج كل المدخلات وتصحيح كل الأخطاء)
+// DigitalExpert.ts - (الإصدار الأخير مع الإصلاح الجذري لمشكلة اللغة العربية)
 // =================================================================================
 
 export interface SmartReply {
@@ -23,7 +23,6 @@ interface Products {
 }
 
 // --- الموسوعة المعرفية الشاملة (عقل الخبير) ---
-// **تم دمج كل النقاط التي أرفقتها أنت**
 const knowledgeBase: {
   products: Products;
   logistics: any;
@@ -31,7 +30,7 @@ const knowledgeBase: {
   expertise: any;
   storeInfo: any;
 } = {
-  // 1. المنتجات (القائمة الموسعة بالكامل)
+  // ... (قاعدة المعرفة الكاملة التي تحتوي على 50 منتجًا تبقى كما هي بدون تغيير) ...
   products: {
     "cement-standard": { name: "أسمنت بورتلاندي عادي", keywords: ["اسمنت عادي"], category: "أسمنتيات", brand: "أسمنت العربية", price: 18, bulkPrice: 17, use_case: "للأعمال الداخلية العامة واللياسة." },
     "cement-resistant": { name: "أسمنت مقاوم للكبريتات", keywords: ["اسمنت مقاوم"], category: "أسمنتيات", brand: "أسمنت اليمامة", price: 22, bulkPrice: 21, use_case: "مثالي للأساسات والمناطق الرطبة لمقاومته العالية للأملاح." },
@@ -43,7 +42,7 @@ const knowledgeBase: {
     "rebar-14": { name: "حديد تسليح 14مم", keywords: ["حديد 14"], category: "حديد", brand: "حديد الراجحي", price: 2810, bulkPrice: 2760, use_case: "للأعمدة والجسور متوسطة الحجم." },
     "rebar-16": { name: "حديد تسليح 16مم", keywords: ["حديد 16"], category: "حديد", brand: "حديد الراجحي", price: 2820, bulkPrice: 2770, use_case: "للأعمدة الرئيسية والأساسات التي تتطلب قوة تحمل عالية." },
     "rebar-18": { name: "حديد تسليح 18مم", keywords: ["حديد 18"], category: "حديد", brand: "حديد الراجحي", price: 2840, bulkPrice: 2790, use_case: "للأساسات الكبيرة والمشاريع الضخمة." },
-    "block-standard-20": { name: "بلوك أسمنتي مصمت 20سم", keywords: ["بلوك مصمت 20", "طابوق 20"], category: "بلوك", brand: "مصنع الرواد", price: 3.5, bulkPrice: 3.2, use_case: "للجدران الحاملة والقواطع الرئيسية." },
+    "block-standard-20": { name: "بلوك أسمنتي مصمت 20سم", keywords: ["بلوك مصمت 20", "طابوق 20", "طابوق"], category: "بلوك", brand: "مصنع الرواد", price: 3.5, bulkPrice: 3.2, use_case: "للجدران الحاملة والقواطع الرئيسية." },
     "block-standard-15": { name: "بلوك أسمنتي مصمت 15سم", keywords: ["بلوك 15"], category: "بلوك", brand: "مصنع الرواد", price: 3.1, bulkPrice: 2.8, use_case: "للقواطع الداخلية غير الحاملة." },
     "block-insulated-white": { name: "بلوك عازل أبيض (سيبوركس) 20سم", keywords: ["بلوك عازل", "بلوك ابيض", "سيبوركس"], category: "بلوك", brand: "سيبوركس", price: 5, bulkPrice: 4.7, use_case: "لعزل حراري وصوتي ممتاز، وتخفيف الأحمال على المبنى." },
     "block-red-hollow": { name: "بلوك أحمر مفرغ 20سم", keywords: ["بلوك احمر", "طوب احمر"], category: "بلوك", brand: "اليمامة للطوب الأحمر", price: 2.8, bulkPrice: 2.5, use_case: "خفيف الوزن ومناسب للقواطع الداخلية والجدران غير الحاملة." },
@@ -51,7 +50,7 @@ const knowledgeBase: {
     "insulation-thermal-rockwool": { name: "ألواح عزل حراري (صوف صخري)", keywords: ["عازل حراري", "صوف صخري"], category: "عوازل", brand: "روك وول", price: 25, bulkPrice: 22, use_case: "لعزل الجدران والأسقف حراريًا، مما يقلل من استهلاك الكهرباء." },
     "insulation-bitumen-roll": { name: "لفائف بيتومين (بحص) 4مم", keywords: ["رولات عزل", "بيتومين"], category: "عوازل", brand: "انسوتك", price: 90, bulkPrice: 85, use_case: "طبقة عزل مائي أولية للأسطح قبل التبليط." },
     "insulation-foam-board": { name: "ألواح فوم أزرق (بوليسترين)", keywords: ["فوم ازرق", "عازل فوم"], category: "عوازل", brand: "داو (Dow)", price: 30, bulkPrice: 27, use_case: "عزل حراري عالي الكفاءة للجدران والأرضيات والأسطح." },
-    "paint-jotun-exterior": { name: "دهان خارجي (جوتاشيلد)", keywords: ["دهان خارجي", "بويه خارجيه", "جوتاشيلد"], category: "دهانات", brand: "جوتن", price: 180, bulkPrice: 170, use_case: "مقاوم لأقسى الظروف الجوية والحرارة العالية في جدة." },
+    "paint-jotun-exterior": { name: "دهان خارجي (جوتاشيلد)", keywords: ["دهان خارجي", "بويه خارجيه", "جوتاشيلد", "دهانات"], category: "دهانات", brand: "جوتن", price: 180, bulkPrice: 170, use_case: "مقاوم لأقسى الظروف الجوية والحرارة العالية في جدة." },
     "paint-jotun-interior": { name: "دهان داخلي (فينوماستيك)", keywords: ["دهان داخلي", "بويه داخليه", "فينوماستيك"], category: "دهانات", brand: "جوتن", price: 130, bulkPrice: 120, use_case: "دهان صحي وقابل للغسيل، متوفر بآلاف الألوان." },
     "paint-base-sealer": { name: "أساس (سيلر) مائي", keywords: ["اساس", "سيلر"], category: "دهانات", brand: "جوتن", price: 95, bulkPrice: 90, use_case: "يطبق قبل الدهان لزيادة الالتصاق وتوحيد امتصاص السطح." },
     "paint-putty": { name: "معجون جدران", keywords: ["معجون"], category: "دهانات", brand: "سافيتو", price: 40, bulkPrice: 35, use_case: "لتسوية وتنعيم الجدران قبل تطبيق طبقة الأساس والدهان." },
@@ -79,40 +78,19 @@ const knowledgeBase: {
     "measuring-tape": { name: "شريط قياس (متر) 5 متر", keywords: ["متر"], category: "أدوات", brand: "ستانلي", price: 35, bulkPrice: 30, use_case: "لأخذ القياسات الدقيقة في الموقع." },
     "wheelbarrow": { name: "عربية (برويطة)", keywords: ["عربية", "برويطة"], category: "أدوات", brand: "صناعة وطنية", price: 150, bulkPrice: 140, use_case: "لنقل المواد مثل الرمل والأسمنت داخل موقع العمل." },
   },
-
-  // 2. خدمات التوصيل والخدمات اللوجستية
-  logistics: {
-    policy: "نعم، نوصل داخل جدة. الطلبات فوق 500 ريال توصيلها مجاني. أقل من ذلك، رسوم التوصيل 30 ريال.",
-    duration: "عادةً خلال 24 ساعة للطلبات داخل جدة.",
-    coverage: "نغطي جميع أحياء جدة حاليًا، بما في ذلك أبحر والمناطق الشمالية."
-  },
-
-  // 3. سياسات الدفع والطلبات
-  payment: {
-    methods: "نقبل الدفع نقدًا عند الاستلام، شبكة (مدى)، وتحويل بنكي.",
-    howToOrder: "يمكنك الطلب مباشرة من هنا بترك رقمك، أو عبر الواتساب، أو بالاتصال المباشر على أرقامنا."
-  },
-
-  // 4. الخبرة الفنية والمشورة
-  expertise: {
-    contractor_offer: "فهمت، تحتاج عرض سعر لمشروع. نحن نقدم أسعارًا خاصة جدًا للمقاولين والكميات الكبيرة. لتجهيز عرض سعر يليق بمشروعك، اترك اسمك ورقمك وسيتواصل معك المدير المسؤول مباشرة.",
-    technical_escalation: "هذا سؤال تقني ممتاز. لضمان حصولك على أدق إجابة، هل تسمح لي بأخذ رقمك ليتواصل معك كبير المهندسين لدينا؟"
-  },
-
-  // 5. معلومات المتجر
-  storeInfo: {
-    location: "فرعنا الرئيسي في حي الريان بجدة.",
-    hours: "أوقات الدوام من السبت إلى الخميس، من 8 صباحًا حتى 9 مساءً."
-  }
+  logistics: { policy: "نعم، نوصل داخل جدة. الطلبات فوق 500 ريال توصيلها مجاني. أقل من ذلك، رسوم التوصيل 30 ريال.", duration: "عادةً خلال 24 ساعة للطلبات داخل جدة.", coverage: "نغطي جميع أحياء جدة حاليًا، بما في ذلك أبحر والمناطق الشمالية." },
+  payment: { methods: "نقبل الدفع نقدًا عند الاستلام، شبكة (مدى)، وتحويل بنكي.", howToOrder: "يمكنك الطلب مباشرة من هنا بترك رقمك، أو عبر الواتساب، أو بالاتصال المباشر على أرقامنا." },
+  expertise: { contractor_offer: "فهمت، تحتاج عرض سعر لمشروع. نحن نقدم أسعارًا خاصة جدًا للمقاولين والكميات الكبيرة. لتجهيز عرض سعر يليق بمشروعك، اترك اسمك ورقمك وسيتواصل معك المدير المسؤول مباشرة.", technical_escalation: "هذا سؤال تقني ممتاز. لضمان حصولك على أدق إجابة، هل تسمح لي بأخذ رقمك ليتواصل معك كبير المهندسين لدينا؟" },
+  storeInfo: { location: "فرعنا الرئيسي في حي الريان بجدة.", hours: "أوقات الدوام من السبت إلى الخميس، من 8 صباحًا حتى 9 مساءً." }
 };
 
-// --- دوال مساعدة (بدون تغيير) ---
+// --- [تصحيح جذري] دالة البحث بدون toLowerCase() ---
 const findProductInMessage = (message: string): string | null => {
-    const lowerCaseMessage = message.toLowerCase();
     for (const productKey in knowledgeBase.products) {
         const product = knowledgeBase.products[productKey];
         for (const keyword of product.keywords) {
-            if (lowerCaseMessage.includes(keyword)) {
+            // المقارنة المباشرة بدون تحويل الحروف
+            if (message.includes(keyword)) {
                 return productKey;
             }
         }
@@ -131,9 +109,9 @@ const extractName = (message: string): string | null => {
   return null;
 };
 
-// --- [تصحيح شامل] الدالة الرئيسية بترتيب منطقي صحيح ---
+// --- الدالة الرئيسية بالمنطق الصحيح وبدون toLowerCase() ---
 export const getSmartReply = (message: string, currentName: string | null = null): SmartReply => {
-  const lowerCaseMessage = message.toLowerCase();
+  // لا نستخدم toLowerCase() هنا
   
   // --- الخطوة 1: التحيات والتعرف على الاسم ---
   const newName = extractName(message);
@@ -141,33 +119,32 @@ export const getSmartReply = (message: string, currentName: string | null = null
     return { reply: `يا هلا فيك يا ${newName}، نورتنا! كيف أقدر أخدمك؟`, newName: newName };
   }
   const customerName = currentName;
-  const greetingKeywords = ["السلام عليكم", "مرحبا", "صباح الخير", "مساء الخير", "اهلين", "أهلين", "هلا", "صحة لك باللعافية"];
-  if (greetingKeywords.some(k => lowerCaseMessage.includes(k))) {
+  const greetingKeywords = ["السلام عليكم", "مرحبا", "صباح الخير", "مساء الخير", "اهلين", "أهلين", "هلا", "صحة لك بالعافية", "باهلاً ومرحباً", "صباح جميل"];
+  if (greetingKeywords.some(k => message.includes(k))) {
     const greeting = customerName ? `وعليكم السلام يا ${customerName}` : "وعليكم السلام";
     return { reply: `${greeting}. كيف أقدر أخدمك اليوم؟`, newName: null };
   }
 
   // --- الخطوة 2: الأسئلة الخدمية المباشرة ---
-  if (lowerCaseMessage.includes("دوام") || lowerCaseMessage.includes("متى تفتحون")) return { reply: knowledgeBase.storeInfo.hours, newName: null };
-  if (lowerCaseMessage.includes("توصلون") || lowerCaseMessage.includes("توصيل")) return { reply: knowledgeBase.logistics.policy, newName: null };
-  if (lowerCaseMessage.includes("مشروع") || lowerCaseMessage.includes("عرض سعر")) return { reply: knowledgeBase.expertise.contractor_offer, newName: null };
-  if (lowerCaseMessage.includes("تدفعون") || lowerCaseMessage.includes("الدفع")) return { reply: knowledgeBase.payment.methods, newName: null };
-  if (lowerCaseMessage.includes("موقعكم") || lowerCaseMessage.includes("وين مكانكم")) return { reply: knowledgeBase.storeInfo.location, newName: null };
+  if (message.includes("دوام") || message.includes("متى تفتحون")) return { reply: knowledgeBase.storeInfo.hours, newName: null };
+  if (message.includes("توصلون") || message.includes("توصيل")) return { reply: knowledgeBase.logistics.policy, newName: null };
+  if (message.includes("مشروع") || message.includes("عرض سعر")) return { reply: knowledgeBase.expertise.contractor_offer, newName: null };
+  if (message.includes("تدفعون") || message.includes("الدفع")) return { reply: knowledgeBase.payment.methods, newName: null };
+  if (message.includes("موقعكم") || message.includes("وين مكانكم")) return { reply: knowledgeBase.storeInfo.location, newName: null };
 
   // --- الخطوة 3: الأسئلة عن المنتجات (الجوهر) ---
-  const productKey = findProductInMessage(lowerCaseMessage);
+  const productKey = findProductInMessage(message);
   if (productKey) {
     const product = knowledgeBase.products[productKey];
-    if (lowerCaseMessage.includes("سعر") || lowerCaseMessage.includes("بكم")) {
+    if (message.includes("سعر") || message.includes("بكم")) {
       return { reply: `سعر ${product.name} (${product.brand}) هو ${product.price} ريال. وللكميات، السعر ${product.bulkPrice}. هل تحتاج تفاصيل أكثر؟`, newName: null };
     }
-    // إذا كان سؤالاً عاماً عن المنتج
     return { reply: `بالتأكيد. منتج ${product.name} من شركة ${product.brand} هو ${product.use_case} سعره يبدأ من ${product.price} ريال. هل لديك استفسار محدد عنه؟`, newName: null };
   }
 
   // --- الخطوة 4: المقارنات ---
-  if (lowerCaseMessage.includes("مقارنة") || lowerCaseMessage.includes("أفضل") || lowerCaseMessage.includes("ايش الفرق")) {
-    const productKeys = Object.keys(knowledgeBase.products).filter(pKey => knowledgeBase.products[pKey].keywords.some((k:string) => lowerCaseMessage.includes(k)));
+  if (message.includes("مقارنة") || message.includes("أفضل") || message.includes("ايش الفرق")) {
+    const productKeys = Object.keys(knowledgeBase.products).filter(pKey => knowledgeBase.products[pKey].keywords.some((k:string) => message.includes(k)));
     if (productKeys.length >= 2) {
       const p1 = knowledgeBase.products[productKeys[0]];
       const p2 = knowledgeBase.products[productKeys[1]];
@@ -180,7 +157,7 @@ export const getSmartReply = (message: string, currentName: string | null = null
   }
 
   // --- الخطوة 5: الشكر والختام ---
-  if (lowerCaseMessage.includes("شكرا")) {
+  if (message.includes("شكرا")) {
     const replyText = customerName ? `العفو يا ${customerName}. في الخدمة دايمًا.` : "العفو، في الخدمة دايمًا.";
     return { reply: replyText, newName: null };
   }
