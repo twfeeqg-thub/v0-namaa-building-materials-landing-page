@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getSmartReply } from './DigitalExpert';
+// [مراجعة] التأكد من استيراد الواجهة الجديدة بجانب الدالة
+import { getSmartReply, SmartReply } from './DigitalExpert';
 
-// --- دوال توليد الأصوات برمجيًا ---
+// --- دوال توليد الأصوات برمجيًا (بدون تغيير) ---
 const playSound = (soundFunction: () => void, isMuted: boolean) => {
   if (isMuted) return;
   try {
@@ -42,20 +43,23 @@ const createSendSound = () => {
   oscillator.stop(audioContext.currentTime + 0.15);
 };
 
-// --- أيقونات الواجهة ---
+// --- أيقونات الواجهة (بدون تغيير) ---
 const CloseIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> );
 const SendIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> );
 const SoundOnIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg> );
 const SoundOffIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="1" x2="1" y2="23"></line></svg> );
 
 interface Message { sender: 'user' | 'assistant'; text: string; }
-const initialMessage: Message = { sender: 'assistant', text: "مرحباً بك. أنا مساعدك الذكي. كيف يمكنني خدمتك اليوم؟" };
+// [مراجعة] تحسين الرسالة الترحيبية لتكون أكثر اتساقًا
+const initialMessage: Message = { sender: 'assistant', text: "أهلاً بك في نماء لمواد البناء. أنا مساعدك الذكي، كيف أقدر أخدمك اليوم؟" };
 
 export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void; }) {
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [inputValue, setInputValue] = useState('');
   const [isMuted, setMuted] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  // [إضافة] حالة لتخزين اسم العميل
+  const [customerName, setCustomerName] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -71,9 +75,17 @@ export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClo
     setIsTyping(true);
 
     setTimeout(() => {
-      const reply = getSmartReply(inputValue);
-      const assistantResponse: Message = { sender: 'assistant', text: reply };
+      // [تصحيح رئيسي] استدعاء الدالة مع الوسيطين المطلوبين
+      const replyObject: SmartReply = getSmartReply(inputValue, customerName);
+      
+      const assistantResponse: Message = { sender: 'assistant', text: replyObject.reply };
       setMessages(prev => [...prev, assistantResponse]);
+      
+      // [تعديل] تحديث اسم العميل إذا تم التعرف عليه
+      if (replyObject.newName) {
+        setCustomerName(replyObject.newName);
+      }
+      
       setIsTyping(false);
     }, 1200);
 
@@ -81,6 +93,8 @@ export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClo
   };
 
   const handleNewConversation = () => {
+    // [تعديل] إعادة تعيين اسم العميل عند بدء محادثة جديدة
+    setCustomerName(null);
     setMessages([initialMessage]);
   };
 
@@ -100,7 +114,8 @@ export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClo
       >
         <header className="p-4 flex justify-between items-center border-b border-white/10">
           <div className="flex items-center gap-3">
-            <p className="text-white font-bold">مساعدك الذكي</p>
+            {/* [تعديل] تخصيص العنوان باسم العميل إن وجد */}
+            <p className="text-white font-bold">{customerName ? `أهلاً يا ${customerName}` : 'مساعدك الذكي'}</p>
             <button onClick={() => setMuted(!isMuted)} className="text-white/70 hover:text-white transition-colors" aria-label={isMuted ? "إعادة تشغيل الصوت" : "كتم الصوت"}>
               {isMuted ? <SoundOffIcon /> : <SoundOnIcon />}
             </button>
