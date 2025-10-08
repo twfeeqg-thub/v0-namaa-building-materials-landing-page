@@ -2,69 +2,68 @@
 
 import { useState, useEffect } from 'react';
 
-// --- دوال توليد الأصوات برمجيًا ---
-const playWhooshSound = () => {
+// --- دوال توليد الأصوات برمجيًا (مع إضافة التحكم في الصوت) ---
+const playSound = (soundFunction: () => void, isMuted: boolean) => {
+  if (isMuted) return; // إذا كان الصوت مكتومًا، لا تقم بتشغيل أي شيء
   try {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(1000, audioContext.currentTime + 0.2);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.2);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.2);
+    soundFunction();
   } catch (error) {
     console.error("Web Audio API is not supported in this browser.", error);
   }
 };
 
-const playSendSound = () => {
-  try {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-
-    oscillator.type = 'triangle';
-    oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.15);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.15);
-  } catch (error) {
-    console.error("Web Audio API is not supported in this browser.", error);
-  }
+const createWhooshSound = () => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  oscillator.type = 'sine';
+  gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+  oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(1000, audioContext.currentTime + 0.2);
+  gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.2);
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + 0.2);
 };
 
-// --- أيقونات الواجهة ---
+const createSendSound = () => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  oscillator.type = 'triangle';
+  oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+  gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.15);
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + 0.15);
+};
+
+// --- أيقونات الواجهة (مع إضافة أيقونات الصوت) ---
 const CloseIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> );
 const SendIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> );
+const SoundOnIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg> );
+const SoundOffIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="1" x2="1" y2="23"></line></svg> );
 
 interface Message { sender: 'user' | 'assistant'; text: string; }
+const initialMessage: Message = { sender: 'assistant', text: "مرحباً بك. أنا مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟" };
 
 export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClose: () => void; }) {
-  const [messages, setMessages] = useState<Message[]>([
-    { sender: 'assistant', text: "مرحباً بك. أنا مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟" }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [inputValue, setInputValue] = useState('');
+  const [isMuted, setMuted] = useState(false); // حالة جديدة للتحكم بالصوت
 
   useEffect(() => {
     if (isOpen) {
-      playWhooshSound(); // تشغيل صوت الانبثاق
+      playSound(createWhooshSound, isMuted);
     }
-  }, [isOpen]);
+  }, [isOpen, isMuted]);
 
   const handleSendMessage = () => {
     if (inputValue.trim() === '') return;
-    playSendSound(); // تشغيل صوت الإرسال
+    playSound(createSendSound, isMuted);
     const userMessage: Message = { sender: 'user', text: inputValue };
     setMessages(prev => [...prev, userMessage]);
     
@@ -76,28 +75,31 @@ export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClo
     setInputValue('');
   };
 
+  const handleNewConversation = () => {
+    setMessages([initialMessage]);
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={onClose}>
       <div
         className="w-full max-w-md h-[70vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up"
-        style={{
-          backgroundColor: 'rgba(34, 75, 88, 0.8)', // تغيير اللون ليتناسب مع الهوية البصرية
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)'
-        }}
+        style={{ backgroundColor: 'rgba(34, 75, 88, 0.8)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.1)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <header className="p-4 flex justify-between items-center border-b border-white/10">
-          <p className="text-white font-bold">مساعدك الذكي</p>
+          <div className="flex items-center gap-3">
+            <p className="text-white font-bold">مساعدك الذكي</p>
+            <button onClick={() => setMuted(!isMuted)} className="text-white/70 hover:text-white transition-colors" aria-label={isMuted ? "إعادة تشغيل الصوت" : "كتم الصوت"}>
+              {isMuted ? <SoundOffIcon /> : <SoundOnIcon />}
+            </button>
+          </div>
           <button onClick={onClose} className="text-white/70 hover:text-white transition-colors">
             <CloseIcon />
           </button>
         </header>
+
         <main className="flex-1 p-4 space-y-4 overflow-y-auto">
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -107,8 +109,9 @@ export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClo
             </div>
           ))}
         </main>
+
         <footer className="p-4 border-t border-white/10">
-          <div className="flex items-center bg-gray-900/50 rounded-lg">
+          <div className="flex items-center bg-gray-900/50 rounded-lg mb-2">
             <input
               type="text"
               value={inputValue}
@@ -119,6 +122,11 @@ export default function ChatWindow({ isOpen, onClose }: { isOpen: boolean; onClo
             />
             <button onClick={handleSendMessage} className="p-3 text-teal-400 hover:text-teal-300 transition-colors">
               <SendIcon />
+            </button>
+          </div>
+          <div className="text-center">
+            <button onClick={handleNewConversation} className="text-xs text-gray-400 hover:text-white transition-colors">
+              بدء محادثة جديدة
             </button>
           </div>
         </footer>
