@@ -107,7 +107,7 @@ export const getSmartReply = (message: string): string => {
   }
   if (knowledgeBase.workingHours.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
     return getRandomResponse(knowledgeBase.workingHours.responses);
-s  }
+  }
   if (knowledgeBase.contact.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
     return getRandomResponse(knowledgeBase.contact.responses);
   }
