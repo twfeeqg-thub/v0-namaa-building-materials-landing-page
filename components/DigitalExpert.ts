@@ -1,5 +1,5 @@
 // =================================================================================
-// DigitalExpert.ts - (النسخة الختامية النهائية مع تصحيح TypeScript)
+// DigitalExpert.ts - (النسخة النهائية الشاملة - دمج كل المدخلات وتصحيح كل الأخطاء)
 // =================================================================================
 
 export interface SmartReply {
@@ -23,7 +23,7 @@ interface Products {
 }
 
 // --- الموسوعة المعرفية الشاملة (عقل الخبير) ---
-// تم تطبيق النوع الجديد هنا لضمان سلامة الكود
+// **تم دمج كل النقاط التي أرفقتها أنت**
 const knowledgeBase: {
   products: Products;
   logistics: any;
@@ -106,10 +106,9 @@ const knowledgeBase: {
   }
 };
 
-// --- دوال مساعدة ---
+// --- دوال مساعدة (بدون تغيير) ---
 const findProductInMessage = (message: string): string | null => {
     const lowerCaseMessage = message.toLowerCase();
-    // السطر 92 الذي كان به الخطأ
     for (const productKey in knowledgeBase.products) {
         const product = knowledgeBase.products[productKey];
         for (const keyword of product.keywords) {
@@ -122,52 +121,53 @@ const findProductInMessage = (message: string): string | null => {
 };
 
 const extractName = (message: string): string | null => {
-  const namePatterns = [ /اسمي\s+([أ-ي]+)/, /أنا\s+([أ-ي]+)/, /معاك\s+([أ-ي]+)/, /أنا اسمي\s+([أ-ي]+)/ ];
+  const namePatterns = [ /اسمي\s+([أ-ي\s]+)/, /أنا\s+([أ-ي\s]+)/, /معاك\s+([أ-ي\s]+)/, /أنا اسمي\s+([أ-ي\s]+)/, /يا\s+([أ-ي\s]+)/ ];
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
-    if (match && match[1]) {
-      return match[1];
+    if (match && match[1] && isNaN(parseInt(match[1]))) {
+      return match[1].trim();
     }
   }
   return null;
 };
 
-// --- الدالة الرئيسية: الخبير الرقمي ---
+// --- [تصحيح شامل] الدالة الرئيسية بترتيب منطقي صحيح ---
 export const getSmartReply = (message: string, currentName: string | null = null): SmartReply => {
   const lowerCaseMessage = message.toLowerCase();
-  let newName = extractName(message);
-  const customerName = newName || currentName;
+  
+  // --- الخطوة 1: التحيات والتعرف على الاسم ---
+  const newName = extractName(message);
+  if (newName) {
+    return { reply: `يا هلا فيك يا ${newName}، نورتنا! كيف أقدر أخدمك؟`, newName: newName };
+  }
+  const customerName = currentName;
+  const greetingKeywords = ["السلام عليكم", "مرحبا", "صباح الخير", "مساء الخير", "اهلين", "أهلين", "هلا", "صحة لك باللعافية"];
+  if (greetingKeywords.some(k => lowerCaseMessage.includes(k))) {
+    const greeting = customerName ? `وعليكم السلام يا ${customerName}` : "وعليكم السلام";
+    return { reply: `${greeting}. كيف أقدر أخدمك اليوم؟`, newName: null };
+  }
 
-  // 1. التعامل مع الأسئلة العامة والخدمات
+  // --- الخطوة 2: الأسئلة الخدمية المباشرة ---
   if (lowerCaseMessage.includes("دوام") || lowerCaseMessage.includes("متى تفتحون")) return { reply: knowledgeBase.storeInfo.hours, newName: null };
   if (lowerCaseMessage.includes("توصلون") || lowerCaseMessage.includes("توصيل")) return { reply: knowledgeBase.logistics.policy, newName: null };
   if (lowerCaseMessage.includes("مشروع") || lowerCaseMessage.includes("عرض سعر")) return { reply: knowledgeBase.expertise.contractor_offer, newName: null };
   if (lowerCaseMessage.includes("تدفعون") || lowerCaseMessage.includes("الدفع")) return { reply: knowledgeBase.payment.methods, newName: null };
   if (lowerCaseMessage.includes("موقعكم") || lowerCaseMessage.includes("وين مكانكم")) return { reply: knowledgeBase.storeInfo.location, newName: null };
 
-  // 2. التحيات والتعرف على الاسم
-  if (newName) {
-    return { reply: `يا هلا فيك يا ${newName}، نورتنا! كيف أقدر أخدمك؟`, newName: newName };
-  }
-  if (lowerCaseMessage.includes("السلام عليكم") || lowerCaseMessage.includes("مرحبا")) {
-    const greeting = customerName ? `وعليكم السلام يا ${customerName}` : "وعليكم السلام";
-    return { reply: `${greeting}. كيف أقدر أخدمك اليوم؟`, newName: null };
-  }
-
-  // 3. التعامل مع المنتجات
+  // --- الخطوة 3: الأسئلة عن المنتجات (الجوهر) ---
   const productKey = findProductInMessage(lowerCaseMessage);
-
   if (productKey) {
     const product = knowledgeBase.products[productKey];
     if (lowerCaseMessage.includes("سعر") || lowerCaseMessage.includes("بكم")) {
       return { reply: `سعر ${product.name} (${product.brand}) هو ${product.price} ريال. وللكميات، السعر ${product.bulkPrice}. هل تحتاج تفاصيل أكثر؟`, newName: null };
     }
+    // إذا كان سؤالاً عاماً عن المنتج
     return { reply: `بالتأكيد. منتج ${product.name} من شركة ${product.brand} هو ${product.use_case} سعره يبدأ من ${product.price} ريال. هل لديك استفسار محدد عنه؟`, newName: null };
   }
 
-  // 4. المقارنات
+  // --- الخطوة 4: المقارنات ---
   if (lowerCaseMessage.includes("مقارنة") || lowerCaseMessage.includes("أفضل") || lowerCaseMessage.includes("ايش الفرق")) {
-    const productKeys = Object.keys(knowledgeBase.products).filter(pKey => knowledgeBase.products[pKey].keywords.some(k => lowerCaseMessage.includes(k)));
+    const productKeys = Object.keys(knowledgeBase.products).filter(pKey => knowledgeBase.products[pKey].keywords.some((k:string) => lowerCaseMessage.includes(k)));
     if (productKeys.length >= 2) {
       const p1 = knowledgeBase.products[productKeys[0]];
       const p2 = knowledgeBase.products[productKeys[1]];
@@ -179,12 +179,12 @@ export const getSmartReply = (message: string, currentName: string | null = null
     return { reply: "للمقارنة، أحتاج أعرف المادتين اللي تبغى تقارن بينها.", newName: null };
   }
 
-  // 5. الشكر والختام
+  // --- الخطوة 5: الشكر والختام ---
   if (lowerCaseMessage.includes("شكرا")) {
     const replyText = customerName ? `العفو يا ${customerName}. في الخدمة دايمًا.` : "العفو، في الخدمة دايمًا.";
     return { reply: replyText, newName: null };
   }
 
-  // 6. الرد الافتراضي
+  // --- الخطوة 6: الرد الافتراضي (شبكة الأمان) ---
   return { reply: knowledgeBase.expertise.technical_escalation, newName: null };
 };
