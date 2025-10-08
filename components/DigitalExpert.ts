@@ -1,5 +1,5 @@
 // =================================================================================
-// DigitalExpert.ts - الخبير الرقمي لمتجر نماء لمواد البناء (الإصدار 3.1 - مصحح)
+// DigitalExpert.ts - الخبير الرقمي لمتجر نماء لمواد البناء (الإصدار 3.2 - نهائي)
 // =================================================================================
 
 export interface SmartReply {
@@ -7,7 +7,7 @@ export interface SmartReply {
   newName: string | null;
 }
 
-// --- قاعدة بيانات المنتجات (بدون تغيير) ---
+// --- قاعدة بيانات المنتجات ---
 const products: { [key: string]: any } = {
   "اسمنت": {
     name: "أسمنت مقاوم",
@@ -41,7 +41,7 @@ const products: { [key: string]: any } = {
   }
 };
 
-// --- دوال مساعدة (بدون تغيير) ---
+// --- دوال مساعدة ---
 const findProductInMessage = (message: string): string | null => {
   const lowerCaseMessage = message.toLowerCase();
   for (const productKey in products) {
@@ -92,13 +92,12 @@ export const getSmartReply = (message: string, currentName: string | null = null
   if (lowerCaseMessage.includes("مقارنة") || lowerCaseMessage.includes("أفضل") || lowerCaseMessage.includes("ايش الفرق")) {
     const productKeys = Object.keys(products).filter(p => lowerCaseMessage.includes(p));
     if (productKeys.length >= 2) {
-      // [تصحيح منطقي] الوصول إلى العناصر الصحيحة في المصفوفة
       const p1 = products[productKeys[0]];
       const p2 = products[productKeys[1]];
       
-      // [تصحيح بناء الجملة] بناء السلسلة النصية بطريقة آمنة
-      const feature1 = p1.technical.الاستخدام || p1.technical.الشركة المصنعة;
-      const feature2 = p2.technical.الاستخدام || p2.technical.الشركة المصنعة;
+      // [تصحيح نهائي] استخدام Bracket Notation للوصول إلى الخصائص العربية
+      const feature1 = p1.technical['الاستخدام'] || p1.technical['الشركة المصنعة'];
+      const feature2 = p2.technical['الاستخدام'] || p2.technical['الشركة المصنعة'];
       const replyText = `مقارنة سريعة: ${p1.name} يتميز بـ '${feature1}' وسعره ${p1.price} ريال، بينما ${p2.name} يتميز بـ '${feature2}' وسعره ${p2.price} ريال. الاختيار يعتمد على احتياجك.`;
 
       return {
