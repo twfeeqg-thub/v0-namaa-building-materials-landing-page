@@ -1,5 +1,5 @@
 // =================================================================================
-// DigitalExpert.ts - الخبير الرقمي لمتجر نماء لمواد البناء (الإصدار 3.0)
+// DigitalExpert.ts - الخبير الرقمي لمتجر نماء لمواد البناء (الإصدار 3.1 - مصحح)
 // =================================================================================
 
 export interface SmartReply {
@@ -7,46 +7,41 @@ export interface SmartReply {
   newName: string | null;
 }
 
-// --- قاعدة بيانات المنتجات (مُوسَّعة) ---
+// --- قاعدة بيانات المنتجات (بدون تغيير) ---
 const products: { [key: string]: any } = {
   "اسمنت": {
     name: "أسمنت مقاوم",
     description: "أسمنت بورتلاندي عالي الجودة، مثالي لجميع أنواع الإنشاءات الخرسانية.",
-    price: 20,
-    bulkPrice: 18,
+    price: 20, bulkPrice: 18,
     technical: { "قوة الضغط": "52.5 نيوتن/مم²", "الاستخدام": "الأعمدة والأساسات", "مقاومة الكبريتات": "عالية" }
   },
   "حديد تسليح": {
     name: "حديد تسليح (سابك)",
     description: "حديد تسليح عالي المتانة مطابق للمواصفات السعودية.",
-    price: 2800,
-    bulkPrice: 2750,
+    price: 2800, bulkPrice: 2750,
     technical: { "القطر": "متوفر من 8مم إلى 32مم", "قوة الشد": "600 نيوتن/مم²", "الشركة المصنعة": "سابك" }
   },
   "بلوك": {
     name: "بلوك أسمنتي",
     description: "بلوك أسمنتي مصمت ومعزول للبناء والجدران.",
-    price: 3,
-    bulkPrice: 2.7,
+    price: 3, bulkPrice: 2.7,
     technical: { "الأبعاد": "20x20x40 سم", "العزل": "متوفر نوع معزول بالبوليسترين", "الكثافة": "1200 كجم/م³" }
   },
   "رمل": {
     name: "رمل أبيض (نظيف)",
     description: "رمل أبيض نظيف ومغسول، مناسب لأعمال اللياسة والخلطات.",
-    price: 120,
-    bulkPrice: 110,
+    price: 120, bulkPrice: 110,
     technical: { "نوع المعالجة": "مغسول ونظيف", "الشوائب": "أقل من 2%", "مناسب لـ": "اللياسة، الخرسانة، الدفان" }
   },
   "خرسانة جاهزة": {
     name: "خرسانة جاهزة",
     description: "خرسانة جاهزة حسب الطلب لمختلف إجهادات الضغط.",
-    price: 210,
-    bulkPrice: 200,
+    price: 210, bulkPrice: 200,
     technical: { "الإجهاد": "متوفر من 2500 إلى 7000 psi", "التسليم": "عبر مضخات حديثة", "الاعتماد": "معتمدة من البلديات" }
   }
 };
 
-// --- دوال مساعدة ---
+// --- دوال مساعدة (بدون تغيير) ---
 const findProductInMessage = (message: string): string | null => {
   const lowerCaseMessage = message.toLowerCase();
   for (const productKey in products) {
@@ -58,16 +53,11 @@ const findProductInMessage = (message: string): string | null => {
 };
 
 const extractName = (message: string): string | null => {
-  const namePatterns = [
-    /اسمي\s+([أ-ي]+)/,
-    /أنا\s+([أ-ي]+)/,
-    /معاك\s+([أ-ي]+)/,
-    /أنا اسمي\s+([أ-ي]+)/
-  ];
+  const namePatterns = [ /اسمي\s+([أ-ي]+)/, /أنا\s+([أ-ي]+)/, /معاك\s+([أ-ي]+)/, /أنا اسمي\s+([أ-ي]+)/ ];
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
-    if (match && match) {
-      return match;
+    if (match && match[1]) {
+      return match[1];
     }
   }
   return null;
@@ -102,11 +92,17 @@ export const getSmartReply = (message: string, currentName: string | null = null
   if (lowerCaseMessage.includes("مقارنة") || lowerCaseMessage.includes("أفضل") || lowerCaseMessage.includes("ايش الفرق")) {
     const productKeys = Object.keys(products).filter(p => lowerCaseMessage.includes(p));
     if (productKeys.length >= 2) {
-      const p1 = products[productKeys];
-      const p2 = products[productKeys];
-      // [تصحيح] استخدام علامات التنصيص الفردية بدلاً من المزدوجة
+      // [تصحيح منطقي] الوصول إلى العناصر الصحيحة في المصفوفة
+      const p1 = products[productKeys[0]];
+      const p2 = products[productKeys[1]];
+      
+      // [تصحيح بناء الجملة] بناء السلسلة النصية بطريقة آمنة
+      const feature1 = p1.technical.الاستخدام || p1.technical.الشركة المصنعة;
+      const feature2 = p2.technical.الاستخدام || p2.technical.الشركة المصنعة;
+      const replyText = `مقارنة سريعة: ${p1.name} يتميز بـ '${feature1}' وسعره ${p1.price} ريال، بينما ${p2.name} يتميز بـ '${feature2}' وسعره ${p2.price} ريال. الاختيار يعتمد على احتياجك.`;
+
       return {
-        reply: `مقارنة سريعة: ${p1.name} يتميز بـ '${p1.technical.الاستخدام || p1.technical.الشركة المصنعة}' وسعره ${p1.price} ريال، بينما ${p2.name} يتميز بـ '${p2.technical.الاستخدام || p2.technical.الشركة المصنعة}' وسعره ${p2.price} ريال. الاختيار يعتمد على احتياجك.`,
+        reply: replyText,
         newName: null
       };
     }
