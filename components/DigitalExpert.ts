@@ -1,81 +1,120 @@
 // ==================================================================
-// العقل المفكر: الخبير الرقمي لمتجر نماء لمواد البناء (نسخة تجريبية)
+// العقل المفكر: الخبير الرقمي لمتجر نماء (نسخة 2.0 - الخبير الحجازي)
 // ==================================================================
 
-// 1. قاعدة البيانات المعرفية (المعرفة الافتراضية)
-// ----------------------------------------------------
+// --- دالة مساعدة لاختيار رد عشوائي ---
+const getRandomResponse = (responses: string[]): string => {
+  return responses[Math.floor(Math.random() * responses.length)];
+};
+
+// 1. قاعدة البيانات المعرفية المطورة
+// ------------------------------------
 const knowledgeBase = {
-  // الكلمات المفتاحية والردود عليها
   greetings: {
-    keywords: ["مرحبا", "السلام عليكم", "أهلا", "مساء الخير", "صباح الخير"],
-    response: "أهلاً بك في متجر نماء لمواد البناء! أنا مساعدك الرقمي، كيف يمكنني خدمتك اليوم؟"
+    keywords: ["مرحبا", "السلام عليكم", "أهلا", "هلا", "مساء الخير", "صباح الخير", "يا ولد"],
+    responses: [
+      "يا هلا! حياك الله في متجر نماء. أنا مساعدك الرقمي، تحت أمرك.",
+      "أهلاً وسهلاً. كيف أقدر أخدمك اليوم؟",
+      "عليكم السلام ورحمة الله. أبشر، ايش طلبك؟"
+    ]
   },
   pricing: {
-    keywords: ["سعر", "كم", "بكم", "أسعار"],
-    // ردود ذكية تعتمد على المنتج المذكور
+    keywords: ["سعر", "كم", "بكم", "قديش", "حسبتها", "على كم"],
     getProductPrice: (product: string): string => {
-      if (product.includes("اسمنت مقاوم")) return "سعر كيس الأسمنت المقاوم هو 18 ريال سعودي. هل ترغب في معرفة الكميات المتوفرة أو تكلفة التوصيل؟";
-      if (product.includes("بلوك")) return "لدينا أنواع مختلفة من البلوك. البلوك الأسمنتي العادي مقاس 20 سم سعره 2.5 ريال للحبة. هل تبحث عن نوع أو مقاس معين؟";
-      if (product.includes("حديد تسليح")) return "سعر طن حديد التسليح مقاس 16 ملم هو 2800 ريال. الأسعار قد تتغير قليلاً. هل أتحقق لك من سعر اليوم الدقيق؟";
-      return "لمعرفة الأسعار بدقة، يرجى تحديد المنتج الذي تسأل عنه. مثلاً: 'كم سعر اسمنت مقاوم؟'";
+      if (product.includes("اسمنت مقاوم")) return "سعر كيس الأسمنت المقاوم عندنا بـ 18 ريال. تبغى كمية معينة؟ عندنا عروض للكميات.";
+      if (product.includes("بلوك")) return "البلوك أنواع يا طيب. عندنا العادي أبو 20 سم بـ 2.5 ريال للحبة. وفيه العازل أغلى شوي. أي نوع في بالك؟";
+      if (product.includes("حديد")) return "حديد التسليح سعره يتغير، لكن طن الـ 16 ملم اليوم حول 2800 ريال. تبغى أتأكد لك من سعر اللحظة؟";
+      if (product.includes("مطرقة")) return "عندنا مطارق مختلفة، فيه مطرقة بخلّاعة مسامير بـ 25 ريال، وفيه مطارق ثقيلة للتكسير. أي استخدام تحتاجها له؟";
+      return "أبشر بعزك، بس حدد لي ايش المنتج اللي تبغى سعره بالضبط عشان أعطيك العلم الأكيد. مثلاً قول: 'كم سعر بلوك عازل؟'";
     }
   },
   availability: {
-    keywords: ["متوفر", "موجود", "عندكم"],
-    response: "نعم، بفضل الله، معظم المنتجات الأساسية متوفرة بكميات جيدة. ما هو المنتج الذي تبحث عنه بالتحديد لأؤكد لك؟"
+    keywords: ["متوفر", "موجود", "عندكم", "ألاقي", "فيه"],
+    responses: [
+      "موجود بإذن الله. ايش المنتج اللي في خاطرك عشان أشيك لك عليه؟",
+      "أبشر، أغلب البضاعة الأساسية متوفرة. سمّ لي طلبك وأنا أتأكد لك فوراً.",
+    ]
+  },
+  productList: {
+    keywords: ["ايش تبيعون", "قائمة المنتجات", "ايش عندكم"],
+    response: "ما شاء الله كل شيء تحتاجه للبناء تحت سقف واحد. عندنا أقسام رئيسية: (مواد بناء أساسية، كهرباء، سباكة، عدد وأدوات، دهانات، ومعدات سلامة). أي قسم يهمك أكثر شيء؟"
   },
   delivery: {
-    keywords: ["توصيل", "شحن", "يوصل", "توصيلون"],
-    response: "بالتأكيد، نوفر خدمة التوصيل داخل جدة. تبدأ رسوم التوصيل من 50 ريال وتعتمد على الكمية والمسافة. هل تود تزويدي بالطلب التقريبي والحي لأعطيك تكلفة أدق؟"
+    keywords: ["توصيل", "شحن", "يوصل", "ديليفري", "تجيبون", "طلبية"],
+    responses: [
+      "أكيد نوصل لأي مكان في جدة. أعطيني بس الحي والكمية التقريبية وأعطيك تكلفة التوصيل من عيوني.",
+      "عندنا توصيل يا غالي. يبدأ من 50 ريال. فين موقعك عشان أحسب لك الحسبة صح؟"
+    ]
   },
   comparison: {
-    keywords: ["أفضل", "ايش الفرق", "مقارنة"],
-    response: "سؤال ممتاز! الأسمنت المقاوم مثالي للأساسات والأماكن الرطبة لمقاومته العالية للأملاح والكبريتات، بينما الأسمنت العادي (البورتلاندي) مناسب لمعظم أعمال البناء العامة. مشروعك في أي مرحلة حاليًا؟"
+    keywords: ["أفضل", "ايش الفرق", "مقارنة", "أحسن"],
+    response: "سؤالك مهم ويدل على حرصك. شوف، الأسمنت المقاوم للأساسات والقواعد عشان يحمي من الرطوبة والأملاح. أما العادي فهو ممتاز للصبات الداخلية والأعمدة. مشروعك في أي مرحلة الحين؟"
   },
   contact: {
-    keywords: ["اتصل", "رقمكم", "التواصل", "واتساب"],
-    response: "يسعدنا تواصلك معنا مباشرة! يمكنك الاتصال بنا على الرقم: 0562061338. هل لديك أي استفسار آخر يمكنني مساعدتك به الآن؟"
+    keywords: ["اتصل", "رقمكم", "التواصل", "واتساب", "جوال"],
+    responses: [
+      "يسعدنا اتصالك على الرقم 0562061338. ولو تبغى أي شيء ثاني أنا في الخدمة.",
+      "سجل الرقم عندك: 0562061338. تقدر تتصل أو ترسل واتساب. آمرني."
+    ]
   },
   workingHours: {
-    keywords: ["دوام", "متى تفتحون", "أوقات العمل", "مفتوحين"],
-    response: "أوقات العمل الرسمية في الفرع هي من الساعة 8 صباحًا حتى 10 مساءً، طوال أيام الأسبوع ما عدا يوم الجمعة. ولكن أنا متوفر لخدمتك على مدار الساعة 24/7."
+    keywords: ["دوام", "متى تفتحون", "أوقات العمل", "مفتوحين", "تقفلون"],
+    responses: [
+      "المحل يفتح من 8 الصباح إلى 10 في الليل كل يوم ما عدا الجمعة. لكن أنا معاك هنا 24 ساعة، ما أقفل أبد.",
+      "أوقات دوامنا من 8 صباحاً لـ 10 مساءً. بس لو احتجت أي شي في أي وقت، أنا موجود أخدمك."
+    ]
+  },
+  thankYou: {
+    keywords: ["شكرا", "يعطيك العافية", "مشكور", "ما قصرت"],
+    responses: [
+      "الله يعافيك. في الخدمة دايماً.",
+      "العفو يا غالي. حاضرين للطيبين.",
+      "ماسوينا إلا الواجب. لو احتجت شي ثاني لا تتردد."
+    ]
   },
   fallback: {
-    // الرد الافتراضي في حال لم يتم فهم السؤال
-    response: "عذراً، لم أفهم سؤالك بدقة. هل يمكنك إعادة صياغته؟ يمكنك أن تسألني عن الأسعار، التوافر، أو التوصيل."
+    responses: [
+      "معليش، ما فهمت عليك زين. ممكن توضح سؤالك؟ تقدر تسألني عن الأسعار أو التوصيل.",
+      "العفو، ما استوعبت طلبك. جرب تسألني بطريقة ثانية. مثلاً: 'عندكم توصيل لحي الحمدانية؟'",
+      "والله ما لقطتها. ممكن تعيد السؤال؟ أنا أفهم في أسعار المواد، التوصيل، وأوقات الدوام."
+    ]
   }
 };
 
-// 2. الدالة الرئيسية (العقل المعالج)
-// ------------------------------------
+// 2. الدالة الرئيسية المطورة (العقل المعالج)
+// -----------------------------------------
 export const getSmartReply = (message: string): string => {
-  const lowerCaseMessage = message.toLowerCase();
+  const lowerCaseMessage = message.toLowerCase().trim();
 
-  // --- منطق معالجة الأسعار (الأكثر تعقيدًا) ---
+  // ترتيب الأولوية مهم جداً
   if (knowledgeBase.pricing.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
     return knowledgeBase.pricing.getProductPrice(lowerCaseMessage);
   }
-
-  // --- منطق معالجة بقية الاستفسارات ---
   if (knowledgeBase.greetings.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
-    return knowledgeBase.greetings.response;
+    return getRandomResponse(knowledgeBase.greetings.responses);
   }
-  if (knowledgeBase.availability.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
-    return knowledgeBase.availability.response;
+  if (knowledgeBase.productList.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+    return knowledgeBase.productList.response;
   }
   if (knowledgeBase.delivery.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
-    return knowledgeBase.delivery.response;
+    return getRandomResponse(knowledgeBase.delivery.responses);
+  }
+  if (knowledgeBase.availability.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+    return getRandomResponse(knowledgeBase.availability.responses);
   }
   if (knowledgeBase.comparison.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
     return knowledgeBase.comparison.response;
   }
-  if (knowledgeBase.contact.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
-    return knowledgeBase.contact.response;
-  }
   if (knowledgeBase.workingHours.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
-    return knowledgeBase.workingHours.response;
+    return getRandomResponse(knowledgeBase.workingHours.responses);
+s  }
+  if (knowledgeBase.contact.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+    return getRandomResponse(knowledgeBase.contact.responses);
+  }
+  if (knowledgeBase.thankYou.keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+    return getRandomResponse(knowledgeBase.thankYou.responses);
   }
 
-  // --- الرد الافتراضي ---
-  return knowledgeBase.fallback.response;
+  // الرد الافتراضي الذكي
+  return getRandomResponse(knowledgeBase.fallback.responses);
 };
