@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import ChatWindow from './ChatWindow';
-import Image from 'next/image'; // --- [تعديل] الخطوة 1: استيراد مكون Image من Next.js
+import Image from 'next/image';
 
 // --- دالة توليد صوت النقر برمجيًا (تبقى كما هي) ---
 const playClickSound = () => {
@@ -26,8 +26,6 @@ const playClickSound = () => {
   }
 };
 
-// --- [حذف] تم حذف أيقونة SmartShieldIcon لأننا سنستخدم صورة الشعار ---
-
 export default function SmartAmbassador() {
   const [isChatOpen, setChatOpen] = useState(false);
 
@@ -40,23 +38,22 @@ export default function SmartAmbassador() {
     <>
       <button
         onClick={toggleChatWindow}
-        className="fixed bottom-6 right-6 h-16 w-16 rounded-full flex items-center justify-center text-white shadow-lg cursor-pointer transition-all duration-300 ease-in-out group z-50"
-        // --- [تعديل] الخطوة 2: تغيير الألوان لتتناسب مع هوية الشعار ---
-        style={{ backgroundColor: '#00AEEF' }} // استخدام اللون الأزرق السماوي للشعار كلون أساسي
+        className="fixed bottom-6 right-6 h-16 w-16 rounded-full flex items-center justify-center shadow-2xl cursor-pointer transition-all duration-300 ease-in-out group z-50"
+        // --- [تعديل جذري] الخطوة 1: استخدام خلفية بيضاء لإبراز الشعار ---
+        style={{ backgroundColor: '#FFFFFF' }} 
         aria-label="افتح محادثة مع المساعد الذكي"
       >
-        {/* طبقات التأثيرات البصرية بألوان متناسقة */}
-        <div className="absolute inset-0 rounded-full bg-sky-400 opacity-75 animate-pulse-slow group-hover:animate-none"></div>
-        <div className="absolute inset-0 rounded-full bg-sky-500 transform scale-100 group-hover:scale-110 transition-transform duration-300"></div>
+        {/* --- [تعديل] الخطوة 2: تغيير ألوان تأثير النبض إلى لون رمادي فاتح --- */}
+        <div className="absolute inset-0 rounded-full bg-gray-200 opacity-75 animate-pulse-slow group-hover:animate-none"></div>
+        <div className="absolute inset-0 rounded-full bg-white transform scale-100 group-hover:scale-110 transition-transform duration-300"></div>
         
         <div className="relative z-10">
-          {/* --- [تعديل] الخطوة 3: استخدام الشعار بدلاً من الأيقونة --- */}
           <Image
-            src="/logo.png" // المسار الصحيح للصورة في مجلد public
+            src="/logo.png"
             alt="شعار نماء - المساعد الذكي"
-            width={40} // حجم مناسب للشعار داخل الدائرة
+            width={40}
             height={40}
-            objectFit="contain" // لضمان ظهور الشعار كاملاً بدون قص
+            objectFit="contain"
           />
         </div>
       </button>
