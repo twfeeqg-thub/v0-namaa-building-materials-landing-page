@@ -3,10 +3,9 @@
 import { useState } from 'react';
 import ChatWindow from './ChatWindow';
 import Image from 'next/image';
-import WithPulsingDot from './WithPulsingDot'; // <-- الخطوة 1: استيراد المُغلِّف
+import WithPulsingDot from './WithPulsingDot'; // استيراد المُغلِّف
 
-// ... دالة playClickSound (تبقى كما هي) ...
-const playClickSound = () => { /* ... */ };
+const playClickSound = () => { /* ... دالة الصوت ... */ };
 
 export default function SmartAmbassador() {
   const [isChatOpen, setChatOpen] = useState(false);
@@ -18,41 +17,20 @@ export default function SmartAmbassador() {
 
   return (
     <>
-      {/* --- الخطوة 2: استخدام المُغلِّف لتغليف الزر --- */}
-      <WithPulsingDot>
-        <button
-          onClick={toggleChatWindow}
-          // تم إزالة fixed bottom-6 right-6 من هنا ووضعها في حاوية خارجية إذا لزم الأمر
-          // أو يمكننا وضعها في div خارجي حول WithPulsingDot
-          className="h-16 w-16 rounded-full flex items-center justify-center shadow-2xl cursor-pointer transition-all duration-300 ease-in-out group z-40" // خفضنا z-index قليلاً
-          style={{ backgroundColor: '#FFFFFF' }}
-          aria-label="افتح محادثة مع المساعد الذكي"
-        >
-          {/* لم نعد بحاجة لتأثير النبض القديم هنا */}
-          <div className="absolute inset-0 rounded-full bg-white transform scale-100 group-hover:scale-110 transition-transform duration-300"></div>
-          
-          <div className="relative z-10">
-            <Image
-              src="/logo.png"
-              alt="شعار نماء - المساعد الذكي"
-              width={40}
-              height={40}
-              objectFit="contain"
-            />
-          </div>
-        </button>
-      </WithPulsingDot>
-
-      {/* وضع الزر العائم داخل حاوية لتحديد موقعه */}
+      {/* حاوية خارجية تأخذ التموضع الثابت */}
       <div className="fixed bottom-6 right-6 z-50">
+        {/* المُغلِّف يضيف النقطة النابضة */}
         <WithPulsingDot>
+          {/* الزر الأصلي كما هو تقريبًا */}
           <button
             onClick={toggleChatWindow}
             className="h-16 w-16 rounded-full flex items-center justify-center shadow-2xl cursor-pointer transition-all duration-300 ease-in-out group"
             style={{ backgroundColor: '#FFFFFF' }}
             aria-label="افتح محادثة مع المساعد الذكي"
           >
+            {/* لم نعد بحاجة لتأثير النبض القديم */}
             <div className="absolute inset-0 rounded-full bg-white transform scale-100 group-hover:scale-110 transition-transform duration-300"></div>
+            
             <div className="relative z-10">
               <Image
                 src="/logo.png"
@@ -65,7 +43,6 @@ export default function SmartAmbassador() {
           </button>
         </WithPulsingDot>
       </div>
-
 
       <ChatWindow isOpen={isChatOpen} onClose={() => setChatOpen(false)} />
     </>
